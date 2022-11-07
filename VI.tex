@@ -1,0 +1,1809 @@
+\documentclass[12pt,a5paper]{book}
+\usepackage[utf8x]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{multirow}
+\usepackage{indentfirst}
+\usepackage{amsmath,amssymb}
+\usepackage{wasysym}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+%\usepackage{wrapfig}
+%\usepackage[unicode, pdftex]{hyperref}
+\usepackage[width=112mm,height=172mm,top=2cm,bottom=23mm,left=13mm,right=13mm]{geometry}
+
+\title{\textsc{Математическая физика}}
+\author{Курс лекций \\ Фроловой Елены Вениаминовны}
+\date{}
+
+\begin{document}
+	
+	\maketitle
+	
+	\vspace*{1em}
+	\noindent\Large\textsc{Математическая физика}
+	
+	\vspace*{3em}
+	\noindent\normalsize Под редакцией В.~А. Кобозевой
+	
+	\vspace*{2em}
+	\noindent\small\textit{План экзаменационных вопросов для студентов астрономического отделения математико-механического факультета СПбГУ}
+	
+	\vspace*{27em}
+	\noindent\small{С\,а\,н\,к\,т\,-\,П\,е\,т\,е\,р\,б\,у\,р\,г \quad 2\,0\,2\,2}
+	\newpage
+	
+%	\tableofcontents
+%	\newpage
+	
+	\subsubsection*{\S\,1. Классификация линейных дифференциальных уравнений в частных производных второго порядка}
+	
+	Пусть есть некоторая область $\Omega \subset \mathbb{R}^n$ и есть функция $u: \Omega \rightarrow \mathbb{R}$, причем $u \in C^2(\Omega)$.
+	
+	Будем обозначать частную производную $\frac{\partial u}{\partial x_i}$ как $u_{x_i}$ $\forall\,i = 1, 2, \dots, n$.
+	
+	Запишем общий вид линейного дифференциального уравнения (ЛДУ) в частных производных второго порядка:
+	\begin{equation}\label{LDE}
+		\sum_{i,j=1}^{n}{a_{ij}(x)u_{x_ix_j}} + \sum_{i=1}^{n}{b_{i}(x)u_{x_i}} + c(x)u = f(x),
+	\end{equation}
+	где первое слагаемое представляет собой старшие члены, а второе и третье --- младшие члены, которые не меняют тип уравнения. Поговорим об этом подробнее.
+	
+	Тип уравнения определяется матрицей коэффициентов $A$ размера $n \times n$ с элементами $a_{ij}$. Не умаляя общности, можем считать, что матрица $A$ симметрична:
+	\begin{equation*}
+		u \in C^2 \quad \Rightarrow \quad u_{x_ix_j} = u_{x_jx_i}, \quad i,j = 1,2,\dots,n.
+	\end{equation*}
+	Если же $A$ не является симметричной матрицей, то можно сделать замену
+	\begin{equation*}
+		\tilde{a}_{ij} = \tilde{a}_{ji} = \frac{a_{ij} + a_{ji}}{2},
+	\end{equation*}
+	то есть всегда подразумевается, что $A$ все-таки симметричная. Кроме этого, предположим, что $A$ также постоянна (имеет постоянные коэффициенты). Различают следующие типы уравнений:
+	
+	\begin{itemize}
+		\item [I.] Если все собственные числа матрицы $A$ одного знака, то уравнение \emph{эллиптического типа}.
+		\item [II.] Если одно собственное число матрицы $A$ противоположно по знаку остальным, то уравнение \emph{гиперболического типа}.
+		\item [III.] Если одно собственное число матрицы $A$ равно нулю, а все остальные одного знака, то уравнение \emph{параболического типа}.
+	\end{itemize}
+	Если же коэффициенты матрицы $A$ не постоянные, то типы уравнений останутся теми же, но в каждой точке уравнение будет иметь свой тип ($x \in \Omega_1 \subset \Omega$).
+	
+	Пусть $n = 2$, $x_1 = x$, $x_2 = y$. Рассмотрим
+	\begin{equation*}
+		u_{xx} - yu_{yy} = 0.
+	\end{equation*}
+	Это уравнение меняет свой тип в зависимости от знака $y$. Запишем матрицу коэффициентов и ее собственные числа:
+	\begin{equation*}
+		A = \begin{pmatrix}
+			1 & 0 \\
+			0 & -y
+		\end{pmatrix} \quad \Rightarrow \quad
+		\begin{cases}
+			\lambda_1 = 1, \\
+			\lambda_2 = -y.
+		\end{cases}
+	\end{equation*}
+	Следовательно, уравнение имеет эллиптический тип при $y<0$ и гиперболический при $y>0$.
+	
+	Заметим, что данная классификация не охватывает все возможные уравнения (например, в $\mathbb{R}^3$ можем иметь собственные числа $\lambda_{1} = -1$, $\lambda_{2} = 0$, $\lambda_{3} = 1$), но уравнения, описывающие физические явления, принадлежат одному из этих трех типов. Что касается $\mathbb{R}^2$, то данная классификация покрывает все возможные уравнения.
+	
+	Приведем несколько примеров определения типов уравнений.
+	\begin{itemize}
+		\item [1.] Уравнение Пуассона $\Delta u = f$ или уравнение Лапласа $\Delta u = 0$. \\
+		Распишем оператор Лапласа функции $u = u(x_1, x_2, \dots, x_n)$:
+		\begin{equation*}
+			\Delta u = \text{div\,grad}\,u = u_{x_1x_1} + u_{x_2x_2} + \dots + u_{x_nx_n}.
+		\end{equation*}
+		Матрица коэффициентов данных уравнений
+		\begin{equation*}
+			A = \begin{pmatrix}
+				1 & 0 & \dots & 0 \\
+				0 & 1 & \dots & 0 \\
+				\dots & \dots & \dots & \dots \\
+				0 & 0 & \dots & 1 
+			\end{pmatrix} = E_n,
+		\end{equation*}
+		следовательно, уравнения имеют эллиптический тип.
+		\item [2.] Уравнение колебаний струны $u_{tt} - a^2u_{xx} = 0$. \\
+		Здесь функция $u = u(x,t)$, где $x \in \mathbb{R}([a,b])$. Матрица коэффициентов
+		\begin{equation*}
+			A = \begin{pmatrix}
+				1 & 0  \\
+				0 & -a^2
+			\end{pmatrix}, \quad a > 0,
+		\end{equation*}
+		значит, уравнение имеет гиперболический тип. Аналогичным образом тип определяется в $n$-мерном случае. \\
+		Волновое уравнение $u_{tt} - a^2\Delta u = 0$ (оператор Лапласа берется только по пространственным переменным). Матрица коэффициентов размера $(n+1)\times(n+1)$
+		\begin{equation*}
+			A = \begin{pmatrix}
+				1 & 0 & \dots & 0 \\
+				0 & -a^2 & \dots & 0 \\
+				\dots & \dots & \dots & \dots \\
+				0 & 0 & \dots & -a^2 
+			\end{pmatrix},
+		\end{equation*}
+		это уравнение также гиперболеческого типа.
+		\item [3.] Уравнение теплопроводности $u_t - a^2u_{xx} = f$. \\
+		Здесь функция $u = u(x,t)$, где $x \in \mathbb{R}$.
+		\begin{equation*}
+			A = \begin{pmatrix}
+				0 & 0  \\
+				0 & -a^2
+			\end{pmatrix}, \quad a > 0,
+		\end{equation*}
+		следовательно, данное уравнение имеет параболический тип.
+	\end{itemize}
+
+	\subsubsection*{\S\,2. Невырожденная замена независимых переменных}
+	
+	Пусть хотим заменить переменную $x$ на $y$ (обозначим переход как $x \rightarrow y$), тогда $\Omega \rightarrow \tilde{\Omega}$ (полагаем, что между $\Omega$ и $\tilde{\Omega}$ существует взаимно-однозначное соответствие).
+	
+	Невырожденная замена\footnote{Якобиан такого преобразования не равен нулю.} независимой переменной записывается таким образом:
+	\begin{equation*}
+		u(x) = \tilde{u}(y(x)).
+	\end{equation*}
+	Запишем матрицу Якоби этого преобразования:
+	\begin{equation*}
+		J = \begin{pmatrix}
+			\frac{\partial y_1}{\partial x_1} & \frac{\partial y_1}{\partial x_2} & \dots & \frac{\partial y_1}{\partial x_n} \\
+			\frac{\partial y_2}{\partial x_1} & \frac{\partial y_2}{\partial x_2} & \dots & \frac{\partial y_2}{\partial x_n} \\
+			\dots & \dots & \dots \\
+			\frac{\partial y_n}{\partial x_1} & \frac{\partial y_n}{\partial x_2} & \dots & \frac{\partial y_n}{\partial x_n} \\
+		\end{pmatrix},
+	\end{equation*}
+	\begin{equation*}
+		\det{J} = |J| \neq 0.
+	\end{equation*}
+	Что происходит с уравнением \eqref{LDE} при такой замене? Рассмотрим следующие частные производные
+	\begin{equation*}
+		u_{x_i} = \sum_{k=1}^{n}{\frac{\partial\tilde{u}}{\partial y_k}\frac{\partial y_k}{\partial x_i}}, \qquad u_{x_ix_j} = \sum_{m=1}^{n}\sum_{k=1}^{n}{\frac{\partial^2\tilde{u}}{\partial y_k\partial y_m}\frac{\partial y_k}{\partial x_i}\frac{\partial y_m}{\partial x_j}} + \dots.
+	\end{equation*}
+	Подставим это в уравнение \eqref{LDE}:
+	\begin{equation*}
+		\sum_{i,j=1}^{n}a_{ij}\sum_{k,m=1}^{n}\tilde{u}_{y_ky_m}\frac{\partial y_k}{\partial x_i}\frac{\partial y_m}{\partial x_j} + \sum_{i=1}^{n}b_i\sum_{k=1}^{n}\tilde{u}_{y_k}\frac{\partial y_k}{\partial x_i} + cu =
+	\end{equation*}
+	\begin{equation*}
+		= \sum_{k,m=1}^{n}\left(\sum_{i,j=1}^{n}a_{ij}\frac{\partial y_k}{\partial x_i}\frac{\partial y_m}{\partial x_j}\right)\tilde{u}_{y_ky_m} + \dots = \sum_{k,m=1}^{n}\tilde{a}_{km}\tilde{u}_{y_ky_m} + \dots = f,
+	\end{equation*}
+	где $\tilde{a}_{km} = (A\nabla y_k, \nabla y_m)$.
+	
+	Пусть $\xi \in \mathbb{R}^n$, рассмотрим
+	\begin{equation*}
+		\left(\tilde{A}\xi, \xi\right) = \sum_{k,m=1}^{n}\tilde{a}_{km}\xi_{k}\xi_{m} = \sum_{k,m=1}^{n}\left(\sum_{i,j=1}^{n}a_{ij}\frac{\partial y_k}{\partial x_i}\frac{\partial y_m}{\partial x_j}\right)\xi_k\xi_m = 
+	\end{equation*}
+	\begin{equation*}
+		= \sum_{i,j=1}^{n}a_{ij}\sum_{k=1}^{n}\frac{\partial y_k}{\partial x_i}\xi_k \sum_{m=1}^{n}\frac{\partial y_m}{\partial x_j}\xi_m = \sum_{i,j=1}^{n}a_{ij}\tilde{\xi}_i\tilde{\xi}_j = \left(A\tilde{\xi}, \tilde{\xi}\right),
+	\end{equation*}
+	причем $\tilde{\xi} = J^T\xi$, следовательно,
+	\begin{equation*}
+		\left(AJ^T\xi, J^T\xi\right) \quad \Rightarrow \quad \left(JAJ^T\xi, \xi\right) \quad \Rightarrow \quad \tilde{A} = JAJ^T.
+	\end{equation*}
+	По закону Сильвестра\footnote{Закон инерции квадратичных форм.} количество положительных и отрицательных собственных чисел у этих матриц одинаково. Имеет место утверждение: \emph{при не вырожденной замене независимой переменной тип уравнения не меняется}.
+	
+	Заметим, что любое уравнение с постоянными коэффициэнтами таким образом можно привести к уравнению с упрощенной матрицей и свести к одному из трех типов.
+	
+	\subsubsection*{\S\,3. Приведение линейного дифференциального уравнения второго порядка к каноническому виду методом характеристик}
+	
+	Уравнение \eqref{LDE} сводится к \emph{уравнению характеристик}
+	\begin{equation}\label{eq_char}
+		\sum_{i,j=1}^{n}a_{ij}(x)\,\omega_{x_i}\omega_{x_j} = 0,
+	\end{equation}
+	которое можно записать в виде
+	\begin{equation*}
+		\left(A \nabla\omega, \nabla\omega\right) = 0,
+	\end{equation*}
+	где $\omega$ --- некоторая гладкая функция в $\mathbb{R}$.
+	
+	Если $\omega(x)$ --- решение уравнения характеристик \eqref{eq_char}, то выражение $\omega(x) = const$ задает \emph{характеристическую поверхность} (или \emph{характеристику}).
+	
+	Сделаем замену переменных $\Omega \rightarrow \tilde{\Omega}$, $x \rightarrow y$, такую что $u(x) = \tilde{u}(y(x))$, где $\Omega \subset \mathbb{R}^n$ --- область, $x, y, u \in C^2(\Omega)$. Помним, что
+	\begin{equation*}
+		\tilde{a}_{km} = \sum_{i,j=1}^{n}a_{ij}\frac{\partial y_k}{\partial x_i}\frac{\partial y_m}{\partial x_j},
+	\end{equation*}
+	тогда
+	\begin{equation*}
+		\sum_{k,m=1}^{n}\tilde{a}_{km}\tilde{\omega}_{y_k}\tilde{\omega}_{y_m} = \sum_{i,j=1}^{n}a_{ij} \sum_{k=1}^{n}\frac{\partial y_k}{\partial x_i}\tilde{\omega}_{y_k}\sum_{m=1}^{n}\frac{\partial y_m}{\partial x_j}\tilde{\omega}_{y_m} = \sum_{i,j=1}^{n}a_{ij}\omega_{x_i}\omega_{x_j}.
+	\end{equation*}
+	Следовательно, $\tilde{\omega}(y(x)) = \omega(x)$. Таким образом, характеристики не меняются при невырожденной замене независимой переменной.
+	
+	Пусть теперь переменных две: $u = u(x,y)$. Рассмотрим общий вид уравнения
+	\begin{equation}\label{eq_xy}
+		Au_{xx} + 2Bu_{xy} + Cu_{yy} + Du_x + Fu_y + Ku = f.
+	\end{equation}
+	Составим уравнение характеристик:
+	\begin{equation}\label{eq_char_xy}
+		A\omega^2_x + 2B\omega_x\omega_y + C\omega^2_y = 0,
+	\end{equation}
+	его матрица коэффициентов
+	\begin{equation*}
+		\begin{pmatrix}
+			A & B \\
+			B & C
+		\end{pmatrix}.
+	\end{equation*}
+	Ищем собственные числа
+	\begin{equation*}
+		\left|\begin{matrix}
+			A-\lambda & B \\
+			B & C-\lambda
+		\end{matrix}\right| = \lambda^2 - (A+C)\lambda + (AC - B^2) = 0.
+	\end{equation*}
+	По теореме Виета получаем
+	\begin{itemize}
+		\item [I.] $AC - B^2 > 0$ $\Rightarrow$ эллиптический тип,
+		\item [II.] $AC - B^2 < 0$ $\Rightarrow$ гиперболический тип,
+		\item [III.] $AC - B^2 = 0$ $\Rightarrow$ параболический тип.
+	\end{itemize}
+
+	В области, где уравнение \eqref{eq_xy} сохраняет свой тип, его можно привести к каноническому виду \emph{методом характеристик}.
+	
+	Поскольку $\omega_y \neq 0$, поделим уравнение \eqref{eq_char_xy} на $\omega^2_y$:
+	\begin{equation*}
+		A\left(\frac{\omega_x}{\omega_y}\right)^2 + 2B\left(\frac{\omega_x}{\omega_y}\right) + C = 0.
+	\end{equation*}
+	Выражение $\omega(x, y(x)) = C$ --- неявно заданная функция, тогда по теореме о неявной функции ее дифференцирование приводит к формуле
+	\begin{equation*}
+		\omega_x + \omega_y \frac{dy}{dx} = 0 \quad \Rightarrow \quad y' = \frac{dy}{dx} = -\frac{\omega_x}{\omega_y},
+	\end{equation*}
+	используя это, получаем
+	\begin{equation*}
+		A\left(y'\right)^2 - 2By' + C = 0 \quad \Rightarrow \quad D = 4(B^2 - AC).
+	\end{equation*}
+	
+	\begin{itemize}
+		\item [I.] Эллиптический тип при $D < 0$, то есть квадратное уравнение имеет два комплексных корня, значит, и характеристики будут комплексными (новыми переменными будут $\xi = \text{Re}\omega$ и $\eta = \text{Im}\omega$, то есть $\omega = \xi(x,y) \pm i\,\eta(x,y)$).
+		\item [II.] Гиперболический тип при $D > 0$, то есть квадратное уравнение имеет два вещественных корня, следовательно, характеристики вещественные (новые переменные $\xi = \xi(x,y)$ и $\eta = \eta(x,y)$).
+		\item [II.] Параболический тип при $D = 0$, то есть квадратное уравнение имеет одно решение, второе берется в зависимости от задачи (произвольная функция, линейно независимая с первой).
+	\end{itemize}
+
+	Сделаем в уравнении \eqref{eq_xy} некоторую невырожденную замену переменных: $\xi = \xi(x,y)$, $\eta = \eta(x,y)$ так, что $u(x,y) = \tilde{u}(\xi,\eta)$. Пересчитаем производные:
+	\begin{equation*}
+		u_x = u_\xi\xi_x + u_\eta\eta_x,
+	\end{equation*}
+	\begin{equation*}
+		u_{xx} = u_{\xi\xi}\xi^2_x + 2u_{\xi\eta}\xi_x\eta_x + u_{\eta\eta}\eta^2_x + \dots,
+	\end{equation*}
+	\begin{equation*}
+		u_{xy} = u_{\xi\xi}\xi_x\xi_y + u_{\xi\eta}\xi_x\eta_y + u_{\eta\xi}\eta_x\xi_y + u_{\eta\eta}\eta_x\eta_y + \dots.
+	\end{equation*}
+	Итак, имеем
+	\begin{equation*}
+		\tilde{f} = A\left(u_{\xi\xi}\xi^2_x + 2u_{\xi\eta}\xi_x\eta_x + u_{\eta\eta}\eta^2_x + \dots\right) +
+	\end{equation*}
+	\begin{equation*}
+		+ 2B\left(u_{\xi\xi}\xi_x\xi_y + u_{\xi\eta}\xi_x\eta_y + u_{\eta\xi}\eta_x\xi_y + u_{\eta\eta}\eta_x\eta_y + \dots\right) +
+	\end{equation*}
+	\begin{equation*}
+		+ C\left(u_{\xi\xi}\xi^2_y + 2u_{\xi\eta}\xi_y\eta_y + u_{\eta\eta}\eta^2_y + \dots\right) = 
+	\end{equation*}
+	\begin{equation*}
+		= u_{\xi\xi}\left(A\xi^2_x + 2B\xi_x\xi_y + C\xi^2_y\right) + u_{\eta\eta}\left(A\eta^2_x + 2B\eta_x\eta_y + C\eta^2_y\right) +
+	\end{equation*}
+	\begin{equation*}
+		+ u_{\xi\eta}\left(2A\xi_x\eta_x + 2C\xi_y\eta_y + 2B\xi_x\eta_y + 2B\xi_y\eta_x\right) + \dots.
+	\end{equation*}
+	
+	\begin{itemize}
+		\item [I.] Если тип уравнения эллиптический, то делается замена $\xi = \text{Re}\omega$, $\eta = \text{Im}\omega$, где $\omega = \text{Re}\omega \pm i\,\text{Im}\omega = const$. $\omega$ --- решение уравнения \eqref{eq_char_xy}, следовательно,
+		\begin{equation*}
+			A\left(\xi_x \pm i\,\eta_x\right)^2 + 2B\left(\xi_x \pm i\,\eta_x\right)\left(\xi_y \pm i\,\eta_y\right) + C\left(\xi_y \pm i\,\eta_y\right)^2 = 0.
+		\end{equation*}
+		Это можно записать как
+		\begin{equation*}
+			\left(\left(A\xi^2_x + 2B\xi_x\xi_y + C\xi^2_y\right) - \left(A\eta^2_x + 2B\eta_x\eta_y + C\eta^2_y\right)\right) \pm
+		\end{equation*}
+		\begin{equation*}
+			\pm 2\left(A\xi_x\eta_x + C\xi_y\eta_y + B\xi_x\eta_y + B\xi_y\eta_x\right)i = 0+0i.
+		\end{equation*}
+		Вещественная часть здесь --- это разность множителей при $u_{\xi\xi}$ и $u_{\eta\eta}$, и она равна нулю, значит, эти множители равны. Мнимая часть --- это множитель при $u_{\xi\eta}$, и она равна нулю, то есть нулевой и множитель. Таким образом, уравнение приводится к каноническому виду
+		\begin{equation*}
+			u_{\xi\xi} + u_{\eta\eta} + \dots = 0.
+		\end{equation*}
+		\item [II.] Если тип уравнения гиперболический, то за два вещественных решения принимаем $\xi = \omega_1(x,y)$ и $\eta = \omega_2(x,y)$. Тогда множители при $u_{\xi\xi}$ и $u_{\eta\eta}$ занулятся, так как $\xi$ и $\eta$ --- решения уравнения \eqref{eq_char_xy}. Уравнение приводится к каноническому виду
+		\begin{equation*}
+			u_{\xi\eta} + \dots = 0.
+		\end{equation*}
+		Заметим, что возможен переход от одной канонической формы к другой: пусть $\alpha = (\xi + \eta)/2$, а $\beta = (\xi - \eta)/2$, тогда
+		\begin{equation*}
+			u_\xi = \frac{1}{2}u_\alpha + \frac{1}{2}u_\beta, \qquad u_\eta = \frac{1}{2}u_\alpha - \frac{1}{2}u_\beta,
+		\end{equation*}
+		\begin{equation*}
+			u_{\xi\eta} = \frac{1}{4}u_{\alpha\alpha} - \frac{1}{4}u_{\alpha\beta} + \frac{1}{4}u_{\beta\alpha} - \frac{1}{4}u_{\beta\beta} = \frac{1}{4}\left(u_{\alpha\alpha} - u_{\beta\beta}\right).
+		\end{equation*}
+		\item [III.] Если тип уравнения параболический, то за одно решение берем $\xi = \omega(x,y)$. Тогда множитель при $u_{\xi\xi}$ занулится, так как $\xi$ --- решение уравнения \eqref{eq_char_xy} ($\eta$ берется линейно независимо от $\xi$). Кроме того, $D = 4(B^2 - AC) = 0$, то есть $B^2 = AC$, следовательно, уравнение \eqref{eq_char_xy} --- это полный квадрат:
+		\begin{equation*}
+			A\xi^2_x \pm \sqrt{AC}\xi_x\xi_y + C\xi^2_y = \left(\sqrt{A}\xi_x \pm \sqrt{C}\xi_y\right)^2 = 0.
+		\end{equation*}
+		Пусть $A, C > 0$, тогда
+		\begin{equation*}
+			\xi_x = \mp \sqrt{\frac{C}{A}}\xi_y = \mp \frac{\sqrt{AC}}{A}\xi_y,
+		\end{equation*}
+		тогда множитель при $u_{\xi\eta}$ зануляется. Приходим к каноническому виду
+		\begin{equation*}
+			u_{\eta\eta} + \dots = 0.
+		\end{equation*}
+	\end{itemize}
+
+	\subsubsection*{\S\,4. Задача Коши для линейного дифференциального уравнения второго порядка}
+	
+	Пусть $u = u(x)$, где $x \in \mathbb{R}^n$ и пусть $S \subset \mathbb{R}^n$ --- некоторая гладкая поверхность ($\dim{S} = n - 1$), например, это график функции $x_n = \omega(x_1, x_2, \dots, x_{n-1})$, $\omega \in C^2$.  Рассмотрим задачу Коши для уравнения~\eqref{LDE}
+	\begin{equation}\label{Cauchy_1}
+		u\big|_S = \varphi \in C^2\text{ }(C^1), \qquad \left.\frac{\partial u}{\partial l}\right|_S = \psi \in C^1\text{ }(C),
+	\end{equation}
+	где $\frac{\partial u}{\partial l}$ --- производная по направлению $l$ некоторого поля, заданного на $S$.
+	
+	Обычно в задаче \eqref{Cauchy_1} достаточно брать $\vec{l} \equiv \vec{n}$, где $\vec{n}$ --- нормаль к~поверхности $S$:
+	\begin{equation*}
+		\vec{l} = \left\{l_1,l_2,\dots,l_n\right\},\text{ } l_n \neq 0,
+	\end{equation*}
+	следовательно,
+	\begin{equation*}
+		\left.\frac{\partial u}{\partial l}\right|_S = \sum_{j=1}^{n-1}\varphi_{x_j}l_j + u_{x_n}\big|_{x_n=0}\,l_n,
+	\end{equation*}
+	то есть достаточно задавать только последнее слагаемое.
+	
+	Кроме того, $\vec{l}$ не берут по касательным направлениям, так как такие производные выражаются через $\varphi$. Покажем это, пусть $l$ --- касательная, тогда
+	\begin{equation}
+		\vec{l} = \left\{l_1,l_2,\dots,l_{n-1},0\right\}, \quad \text{причем } \|\vec{l}\| = 1, \quad l_i = \cos{\left(l, x_i\right)};
+	\end{equation}
+	и пусть $S$ --- плоскость, такая что $x_n = 0$. Имеем
+	\begin{equation*}
+		\left.\frac{\partial u}{\partial l}\right|_S = \left.\left(\nabla u, \vec{l}\right)\right|_S = \sum_{j=1}^{n-1} \left.u_{x_j}l_j\right|_{x_n=0} = \sum_{j=1}^{n-1} \left(\left.u\right|_{x_n=0}\right)_{x_j}l_j = \sum_{j=1}^{n-1} \varphi_{x_j}l_j = \frac{\partial \varphi}{\partial l'},
+	\end{equation*}
+	где $\vec{l'} = \left\{l_1,l_2,\dots,\l_{n-1}\right\}$.
+	
+	\vspace*{1em}
+	\emph{Распрямление поверхности} в окрестности точки $x^*$.
+	
+	\noindent Пусть поверхность $S$ задается неявно уравнением
+	\begin{equation*}
+		\omega(x_1,x_2,\dots,x_n) = 0, \quad \omega \in C^2,
+	\end{equation*}
+	и пусть точка $x^* \in S$ такая, что $\omega_{x_n}(x^*) \neq 0$ (всегда можно это предполагать при $|\nabla\omega|\neq0$, или всегда можно перенумеровать последовательность).
+	
+	Сделаем замену
+	\begin{equation*}
+		y_k = x_k, \quad k = 1, 2, \dots, n-1,
+	\end{equation*}
+	\begin{equation*}
+		y_n = \omega(x_1,x_2,\dots,x_n).
+	\end{equation*}
+	В новых переменных $S \rightarrow \tilde{S}$ так, что $y_n = 0$, $u \rightarrow \tilde{u}$, $l \rightarrow \tilde{l}$.
+	
+	Рассмотрим матрицу Якоби этого преобразования в точке $x^*$:
+	\begin{equation*}
+		J = \begin{pmatrix}
+			1 & 0 & \dots & 0 & 0 \\
+			0 & 1 & \dots & 0 & 0 \\
+			\dots & \dots & \dots & \dots & \dots \\
+			0 & 0 & \dots & 1 & 0 \\
+			\omega_{x_1} & \omega_{x_2} & \dots & \omega_{x_{n-1}} & \omega_{x_n} \\
+		\end{pmatrix},
+	\end{equation*}
+	\begin{equation*}
+		\det{J} = \omega_{x_n} \neq 0.
+	\end{equation*}
+	
+	Пусть $L$ --- некоторый линейный оператор, с помощью которого можно записать уравнение \eqref{LDE} таким образом:
+	\begin{equation}\label{LDE_L}
+		Lu = \sum_{i,j=1}^{n}a_{ij}(x)u_{x_ix_j} + \sum_{i=1}^{n}b_i(x)u_{x_i} + c(x)u = f(x),
+	\end{equation}
+	его уравнение характеристик:
+	\begin{equation}\label{eq_char_L}
+		\sum_{i,j=1}^{n}a_{ij}(x)\omega_{x_i}\omega{x_j} = 0.
+	\end{equation}
+	Рассмотрим уравнение \eqref{LDE_L} в новых переменных:
+	\begin{equation}\label{LDE_L_new}
+		\tilde{L}\tilde{u} = \sum_{k,m=1}^{n}\tilde{a}_{km}(x)\tilde{u}_{x_kx_m} + \sum_{k=1}^{n}\tilde{b}_k(x)\tilde{u}_{x_k} + \tilde{c}(x)\tilde{u} = \tilde{f}(x).
+	\end{equation}
+	Здесь имеем
+	\begin{equation*}
+		u_{x_i} = \sum_{k=1}^{n}\frac{\partial\tilde{u}}{\partial y_k}\frac{\partial y_k}{\partial x_i},
+	\end{equation*}
+	следовательно,
+	\begin{equation*}
+		\nabla_x u = J^T\nabla_y \tilde{u},
+	\end{equation*}
+	где $\nabla_x$ --- градиент по старым переменным, а $\nabla_y$ --- по новым. Значит
+	\begin{equation*}
+		\frac{\partial u}{\partial l} = \left(\nabla_x u, \vec{l}\right) = \left(J^T\nabla_y \tilde{u}, \vec{l}\right) = \left.\left(\nabla_y \tilde{u}, J\vec{l}\right)\right|_{y_n=0} = \left.\left(\nabla_y \tilde{u}, \tilde{l}\right)\right|_{y_n=0},
+	\end{equation*}
+	то есть при переходе получили условие такого же типа.
+	
+	Заметим, что если $\vec{l}$ не касательная к поверхности $S$, то и $\tilde{l}$ не касательная (переводим в плоскость). Это значит, что проекция нормали не ноль, и поскольку нормаль направлена по градиенту, то $(\vec{l},\nabla\omega) \neq 0$ и $\tilde{l}_n \neq 0$. Таким образом,
+	\begin{equation*}
+		\frac{\partial u}{\partial l} = \left.\left(\nabla_y \tilde{u}, \tilde{l}\right)\right|_{y_n=0} = \sum_{j=1}^{n-1}\left.\tilde{u}_{y_j}\tilde{l}_j\right|_{y_n=0} + \left.\tilde{u}_{y_n}\tilde{l}_n\right|_{y_n=0}.
+	\end{equation*}
+	
+	В задаче \eqref{Cauchy_1} полагаем $\vec{l} = \vec{\nu}$ ($\vec{\nu}$ --- нормаль), то есть
+	\begin{equation*}
+		u\big|_S = \varphi, \qquad \left.\frac{\partial u}{\partial \nu}\right|_S = \psi.
+	\end{equation*}
+	
+	Пусть дана поверхность $\omega(x_1,x_2,\dots,x_n) = C$, где $\omega$ --- решение уравнения характеристик \eqref{eq_char_L}, тогда $C$ называется \emph{характеристической поверхностью} для уравнения \eqref{LDE_L} (то есть для оператора $L$ в точке $x^*$).
+	
+	Заметим, если поверхность $S$ такая, что $\omega(x_1,x_2,\dots,x_n) = 0$, то из условия $\vec{\nu}\text{ }\| \nabla\omega|_{x=x^*}$ следует $\sum_{i,j}^{n}a_{ij}(x^*)\omega_{x_i}\omega_{x_j} = 0$.
+	
+	\subsubsection*{\S\,5. Связь данных Коши на характеристической поверхности. Пример Адамара}
+	
+	Пусть выполнено распрямление поверхности (\eqref{LDE_L} $\rightarrow$ \eqref{LDE_L_new}). Помним, что при невырожденной замене характеристики не меняются.
+	
+	Рассмотрим уравнение \eqref{LDE_L_new}:
+	\begin{equation*}
+		\tilde{L}\tilde{u} = \sum_{k,m=1}^{n}\tilde{a}_{km}(x)\tilde{u}_{x_kx_m} + \sum_{k=1}^{n}\tilde{b}_k(x)\tilde{u}_{x_k} + \tilde{c}(x)\tilde{u} = \tilde{f}(x),
+	\end{equation*}
+	где
+	\begin{equation*}
+		\tilde{a}_{km} = \sum_{i,j=1}^{n}a_{ij}\frac{\partial y_k}{\partial x_i}\frac{\partial y_m}{\partial x_j}.
+	\end{equation*}
+	Запишем данные Коши
+	\begin{equation*}
+		\left.\tilde{u}\right|_{y_n=0} = \tilde{\varphi} \in C^2, \qquad \left.\tilde{u}_{y_n}\right|_{y_n=0} = \tilde{\psi} \in C^1.
+	\end{equation*}
+	На плоскости $y_n = 0$ находим следующие производные:
+	\begin{equation*}
+		\begin{array}{ll}
+			\left.\tilde{u}_{y_j}\right|_{y_n=0} = \tilde{\varphi}_{y_j}, & j = 1, 2, \dots, n-1; \\
+			\left.\tilde{u}_{y_jy_i}\right|_{y_n=0} = \tilde{\varphi}_{y_jy_i}, & j,i = 1, 2, \dots, n-1; \\
+			\left.\tilde{u}_{y_ny_j}\right|_{y_n=0} = \tilde{\psi}_{y_j}, & j = 1, 2, \dots, n-1.
+		\end{array}
+	\end{equation*}
+	Уравнение \eqref{LDE} сводится к уравнению $\tilde{L}\tilde{u} = \tilde{f}$, то есть
+	\begin{equation}\label{eq_connect}
+		\left.\tilde{a}_{nn}\tilde{u}_{y_ny_n}\right|_{y_n=0} + F\left(\tilde{a}_{km}, \tilde{b}_k, \tilde{c}, \tilde{\varphi}, \tilde{\psi}, \tilde{\varphi}_{y_ky_m}, \dots\right) = \left.\tilde{f}\right|_{y_n=0}.
+	\end{equation}
+	Если $\tilde{a}_{nn} = 0$, то $F(\dots) = \left.\tilde{f}\right|_{y_n=0}$ --- условие связи между $\varphi$ и $\psi$, если $\tilde{a}_{nn} \neq 0$, то \eqref{eq_connect} --- уравнение относительно производной. Разберемся в этом.
+	
+	Если поверхность $S$ характеристическая для оператора $L$ в точке $x^*$, то для существования $C^2$-решения задачи Коши необходимо условия разрешимости $F(\dots) = \left.\tilde{f}\right|_{y_n=0}$, отсюда следует, что
+	\begin{equation*}
+		\tilde{a}_{nn} = \sum_{i,j=1}^{n}a_{ij}\frac{\partial y_n}{\partial x_i}\frac{\partial y_n}{\partial x_j} = \sum_{i,j}^{n}a_{ij}(x^*)\omega_{x_i}\omega_{x_j} = 0, \qquad y_n = \omega(x_1,x_2,\dots,x_n).
+	\end{equation*}
+	Таким образом, если поверхность, на которой задаются условия Коши, характеристическая, то
+	\begin{itemize}
+		\item [1)] если данные Коши ($\varphi, \psi$) на этой поверхности согласованы, то решение существует (и не одно);
+		\item [2)] если данные не согласованы, то решения задачи Коши нет.
+	\end{itemize}
+
+	\noindent \textbf{Т\,е\,о\,р\,е\,м\,а}\, Коши---Ковалевской. \textit{Пусть поверхность не характеристическая. Если данные задачи (коэффициенты, $f$, $\varphi$, $\psi$) вещественно-аналитические функции\footnote{Функция $f$ называется \emph{вещественно-аналитической}, если $f \in \mathbb{R}$, и в~окрестности некоторой точки $f$ раскладывается в сходящийся степенной ряд.}, то существует единственное решение}
+	\begin{equation*}
+		\text{\textit{задачи Коши }} \begin{cases}
+			\eqref{LDE}, \\
+			\eqref{Cauchy_1}
+		\end{cases} \text{\textit{в классе вещественно-аналитических функций.}}
+	\end{equation*}
+	
+	Пусть оператор $L$: $B_1 \rightarrow B_2$, где $B_1$ и $B_2$ --- банаховы пространства\footnote{Пространство называется \emph{банаховым}, если оно является полным (каждая фундаментальная последовательность сходится к элементу этого пространства) по норме векторным пространством.}. Задача Коши
+	\begin{equation}\label{Cauchy_corr}
+		\begin{cases}
+			Lu = F, \\
+			\left.u\right|_S = \varphi, \quad \left.\frac{\partial u}{\partial\nu}\right|_S = \psi
+		\end{cases}
+	\end{equation}
+	поставлена корректно, если
+	\begin{itemize}
+		\item [1)] $\forall\,F \in B_2 \quad \exists\,u \in B_1\,: \quad u \text{ --- решение \eqref{Cauchy_corr}}$;
+		\item [2)] $\forall\,F \in B_2 \quad \exists!\,u \in B_1\,: \quad u \text{ --- решение \eqref{Cauchy_corr}}$;
+		\item [3)] непрерывная зависимость решения от данных задачи: \begin{equation*} \left\|u_1 - u_2\right\|_{B_1} \leq C\left\|F_1 - F_2\right\|_{B_2}. \end{equation*}
+	\end{itemize}
+
+	\noindent З\,а\,м\,е\,ч\,а\,н\,и\,е. Поверхность, не являющаяся характеристической, называется \emph{свободной}; на ней можно ставить задачу Коши. Но для уравнений эллиптического типа характеристических поверхностей не существует (поскольку решение уравнения характеристик комплексное), а условия Коши не ставятся из-за нарушения пункта 3).
+	
+	\vspace*{1em}
+	\emph{Пример Адамара.}\\
+	\noindent Пусть $u = u(x,y)$, $\Pi$: $x \in \mathbb{R}, y \in [0; h]$. Рассмотрим следующую задачу Коши для уравнения Лапласа (оно имеет эллиптический тип):
+	\begin{equation}\label{Hadamard}
+		\begin{cases}
+			u^k_{xx} + u^k_{yy} = 0 \quad \text{в }\Pi, \\
+			\left.u\right|_{y=0} = \varphi_k(x) = \frac{1}{k}\sin{(kx)}, \\ \left.u_y\right|_{y=0} = \psi(x) = 0.
+		\end{cases}
+	\end{equation}
+	Нетрудно понять, что выражение
+	\begin{equation*}
+		u^k(x,y) = \frac{1}{k}\sin{(kx)}\cosh{(ky)}
+	\end{equation*}
+	является решением задачи \eqref{Hadamard}. Рассмотрим
+	\begin{equation*}
+		\sup_{\Pi}\left|\varphi_k(x)\right| = \frac{1}{k} \xrightarrow[k\rightarrow\infty]{} 0,
+	\end{equation*}
+	но
+	\begin{equation*}
+		\sup_{\Pi}\left|u^k(x,y)\right| = \frac{1}{k}\cosh{(kh)} \xrightarrow[k\rightarrow\infty]{h>0} \infty.
+	\end{equation*}
+	То есть малое изменение начальных условий влечет большие изменения задачи Коши в любой близости от линии начальных значений. Таким образом, для данного уравнения задача Коши некорректна.
+	
+	\subsubsection*{\S\,6. Первая вариация. Необходимое условие экстремума}
+	
+	Пусть $B$ --- линейное нормированное пространство, положим, что оно полное по норме (то есть банахово), и рассмотрим \emph{функционал}\footnote{Отображение, которое сопоставляет каждому элементу пространства число.} $F$\,: $B \rightarrow \mathbb{R}$. Возможно, что функционал $F$\,: $D \rightarrow \mathbb{R}$, где $D \subset B$ (причем $D$ называется \emph{областью определения} функционала $F$).
+	
+	Пусть функция $u \in D$, задача состоит в поиске минимума ($\min{F[u]}$) или максимума ($\max{F[u]}$) данного функционала. Заметим, что справедливо равенство $\max{F} = -\min{(-F)}$. В основном будем говорить о поиске минимума.
+	
+	Функция $u_0$ называется \emph{локальным минимумом} функционала $F$, если
+	\begin{equation*}
+		\exists\,\delta > 0\,: \quad \forall\,u \in V_\delta(u_0) \cap D
+	\end{equation*}
+	имеет место неравенство
+	\begin{equation*}
+		F[u_0] \leq F[u].
+	\end{equation*}
+
+	Приведем несколько примеров.
+	\begin{itemize}
+		\item [1.] Задача о брахистохроне (Бернулли, 1696).\\
+		Среди плоских кривых, соединяющих точки $A$ и $B$, найти ту кривую, по которой при действии только силы тяжести (без трения) материальная точка быстрее всего попадет из точки $A$ в~точку $B$.
+		\begin{center}
+			\begin{tikzpicture}
+				\draw[gray, thick, ->] (0,0) -- (3,0);
+				\draw[gray, thick, ->] (0,0) -- (0,-2);
+				\filldraw[black] (0,0) circle (1pt) node[above]{$A(0;0)$};
+				\draw (3,0) node[above]{$x$};
+				\draw (0,-2) node[left]{$y$};
+				\filldraw[black] (2,0) circle (1pt) node[above]{$x_1$};
+				\filldraw[black] (0,-1.2) circle (1pt) node[left]{$y_1$};
+				\filldraw[black] (2,-1.2) circle (1pt) node[below]{$B(x_1;y_1)$};
+				\draw[gray, dotted] (2,0) -- (2,-1.2);
+				\draw[gray, dotted] (0,-1.2) -- (2,-1.2);
+				\draw [black] (0,0) to [out=-80,in=180] (2,-1.2);
+				\draw [gray, dotted] (0,0) to [out=-60,in=165] (2,-1.2);
+				\draw [gray, dotted] (0,0) to [out=-100,in=205] (2,-1.2);
+			\end{tikzpicture}
+		\end{center}
+		Из закона сохранения энергии известно, что
+		\begin{equation*}
+			\frac{mv^2}{2} = mgy \quad \Rightarrow \quad v = \sqrt{2gy}.
+		\end{equation*}	
+		Пусть $y = y(x)$ --- явно заданная траектория движения материальной точки, причем $y \in C^1([0; x_1])$, также учтем, что начало и конец пути неизменны: $y(0) = 0$, $y(x_1) = y_1$. Нужно минимизировать время.
+		
+		Пусть $T[y]$ --- функционал времени, рассмотрим
+		\begin{equation*}
+			dt = \frac{dS}{v} = \frac{\sqrt{1+(y')^2}dx}{\sqrt{2gy}},
+		\end{equation*}
+		тогда
+		\begin{equation*}
+			T[y] = \frac{1}{\sqrt{2g}}\int\limits_0^{x_1} \frac{\sqrt{1 + (y')^2}}{\sqrt{y}}\,dx.
+		\end{equation*}
+		Можно считать, что $v = \sqrt{y}$, так как константа $\sqrt{2g}$ при поиске минимума не важна. (Искомая кривая --- дуга циклоиды.)
+		
+		\item [2.] Задача о распространении света в неоднородной оптической среде. \\
+		Пусть скорость света $v = v(x,y)$, и пусть траектория распространения света задается явно: $y = y(x)$, $y \in C^1([x_1; x_2])$, начальные данные: $y(x_1) = y_1$, $y(x_2) = y_2$.
+		\begin{center}
+			\begin{tikzpicture}
+			\draw[gray, thick, ->] (0,0) -- (3,0);
+			\draw[gray, thick, ->] (0,0) -- (0,2);
+			\draw (3,0) node[below]{$x$};
+			\draw (0,2) node[left]{$y$};
+			\filldraw[black] (2.2,0) circle (1pt) node[below]{$x_2$};
+			\filldraw[black] (1.1,0) circle (1pt) node[below]{$x_1$};
+			\filldraw[black] (0,0.7) circle (1pt) node[left]{$y_1$};
+			\filldraw[black] (0,1.4) circle (1pt) node[left]{$y_2$};
+			\draw[gray, dotted] (2.2,0) -- (2.2,1.4);
+			\draw[gray, dotted] (1.1,0) -- (1.1,0.7);
+			\draw[gray, dotted] (0,0.7) -- (1.1,0.7);
+			\draw[gray, dotted] (0,1.4) -- (2.2,1.4);
+			\filldraw[black] (1.1,0.7) circle (1pt);
+			\filldraw[black] (2.2,1.4) circle (1pt);
+			\draw [black] (1.1,0.7) to [out=60,in=180] (1.5, 1) to [out=0,in=180] (1.8,0.8) to [out=0,in=-120] (2.2,1.4);
+			\end{tikzpicture}
+		\end{center}
+		Задача состоит в поиске минимума такого функционала
+		\begin{equation*}
+			T[y] = \int\limits_{x_1}^{x_2} \frac{\sqrt{1 + (y')^2}}{v(x,y)}\,dx.
+		\end{equation*}
+		\item [3.] Задача о минимальной площади поверхности, натянутой на некоторую замкнутую кривую.\\
+		Пусть $\Gamma$ --- гладкая замкнутая кривая в $\mathbb{R}^3$, а $\gamma$ --- плоская замкнутая кривая. Пусть $\Gamma$\,: $z = \varphi(x,y)$, где $(x,y) \in \gamma$, причем $\gamma = \partial\Omega$, $\Omega \subset \mathbb{R}^2$.
+		\begin{center}
+			\begin{tikzpicture}
+			\draw[gray, thick, ->] (0,0) -- (2.5,0);
+			\draw[gray, thick, ->] (0,0) -- (0,2);
+			\draw[gray, thick, ->] (0,0) -- (-1,-1.5);
+			\draw (-1,-1.5) node[left]{$x$};
+			\draw (2.5,0) node[below]{$y$};
+			\draw (0,2) node[left]{$z$};
+			\draw [black] (0.4,1) to [out=90,in=220] (0.6,1.4) to [out=40,in=180] (0.9,1.7) to [out=0,in=90] (1.5,1.5) to [out=-80,in=170] (1.8,1.3) to [out=-20,in=90] (1.9,0.7) to [out=-90,in=10] (1.6,0.4) to [out=170,in=-50] (1,0.3) to [out=140,in=-90] (0.4,1);
+			\draw (1.7,1.5) node[right]{$\Gamma$};
+			\draw [black] (0.4,-0.9) to [out=-70,in=-130] (1.9,-0.7) to [out=40,in=-10] (1.6,-0.4) to [out=160,in=20] (1.1,-0.5) to [out=20,in=-30] (0.7,-0.5) to [out=170,in=110] (0.4,-0.9);
+			\draw (0.5,-0.8) node[right]{$\Omega$};
+			\draw (1.7,-1) node[right]{$\gamma$};
+			\end{tikzpicture}
+		\end{center}
+		Рассмотрим поверхность $z = u(x,y)$, $(x,y) \in \Omega$. Тогда задача состоит в поиске минимума функционала
+		\begin{equation*}
+			S[u] = \iint\limits_{\Omega}\sqrt{1 + u_x^2 + u_y^2}\,dxdy,
+		\end{equation*}
+		его область определения:
+		\begin{equation*}
+			D(S) = \left\{u \in C^1(\bar{\Omega}), \quad \left.u\right|_{\partial\Omega} = \varphi(x,y)\right\}.
+		\end{equation*}		
+	\end{itemize}
+
+	Пусть $F$\,:$B \rightarrow \mathbb{R}$ и $B = D$. Пусть $u_0$ --- локальный минимум функционала $F$ (то есть $\exists\,\delta > 0\,: \quad \|u - u_0\| < \delta \quad \Rightarrow \quad F[u_0] \leq F[u]$). Рассмотрим
+	\begin{equation*}
+		u = u_0 + \alpha h \in B \quad \left(\alpha \in \mathbb{R}, h \in B\right),
+	\end{equation*}
+	тогда при $h \neq \vec{0}$
+	\begin{equation*}
+		\|u - u_0\| = \|u_0 + \alpha h - u_0\| = |\alpha| \cdot \|h\| < \delta,
+	\end{equation*}
+	это верно, если
+	\begin{equation*}
+		|\alpha| < \frac{\delta}{\|h\|} = \alpha_0.
+	\end{equation*}
+	Зафиксируем $u_0$ и $h$, тогда $F[u_0 + \alpha h] = \varphi(\alpha)$, где $\varphi$ имеет локальный минимум при $\alpha = 0$. Необходимое условие экстремума: $\varphi'(0) = 0$.
+	
+	\emph{Первой вариацией} функционала $F$ называется
+	\begin{equation*}
+		\delta F(u_0,h) = \left.\frac{d}{d\alpha}F[u_0 + \alpha h]\right|_{\alpha = 0}.
+	\end{equation*}
+	Тогда \emph{необходимое условие экстремума}:
+	\begin{equation*}
+		\delta F(u_0,h) = 0 \quad \forall\,h \in B.
+	\end{equation*}
+	
+	Кривая $u$, для которой выполнено необходимое условие экстремума, называется \emph{экстремалью} (но необязательно у экстремали будет экстремум).
+	
+	Сделаем несколько замечаний.
+	\begin{itemize}
+		\item [1.] Если функционал зависит только от функции $u$ (то есть $F[u] = f(u)$), то
+		\begin{equation*}
+			\left.\frac{d}{d\alpha}f(u+\alpha h)\right|_{\alpha=0} = f'(u)h.
+		\end{equation*}
+		\item [2.] Если существует линейный по $h$ функционал $l(u,h)$, такой что
+		\begin{equation*}
+			F[u + h] - F[u] = l(u,h) + o(\|h\|),
+		\end{equation*}
+		то существует $\delta F(u,h) = l(u,h)$.\\
+		\textbf{Доказательство.} Рассмотрим следующее выражение
+		\begin{equation*}
+			\frac{F[u + \alpha h] - F[u]}{\alpha} = \frac{l(u,\alpha h) + o(\|h\|)}{\alpha} = \frac{\alpha l(u,h) + o(\alpha)\|h\|}{\alpha} \xrightarrow[\alpha \rightarrow 0]{}
+		\end{equation*}
+		\begin{equation*}
+			\xrightarrow[\alpha \rightarrow 0]{} l(u,h), \quad \text{поскольку } \frac{o(\alpha)}{\alpha} \xrightarrow[\alpha \rightarrow 0]{} 0.
+		\end{equation*}
+		Таким образом, $\frac{1}{\alpha}(F[u + \alpha h] - F[u]) \xrightarrow[\alpha \rightarrow 0]{} l(u,h)$.$\blacksquare$
+	\end{itemize}
+
+	Пусть теперь $D \neq B$, то есть $F$\,: $D \rightarrow \mathbb{R}$, $D \subset B$. Введем $M$ --- линейное многообразие в $B$ (такой аналог аффиного множества), и пусть $M$ такое, что $u = \hat{u} + \eta$, где $\eta \in M \subset B$, а $\hat{u} \in B$ --- фиксированный элемент.
+	
+	Запишем область определения функционала как $D = \{\hat{u}\} + M$.
+	
+	Например, пусть $D = \{y \in C^1([x_1;x_2]), y(x_1) = y_1, y(x_2) = y_2\}$. Найдем $\hat{y}$. Допустим, этот элемент имеет вид $\hat{y} = \alpha x + \beta$, тогда из~условий на $y$ получаем
+	\begin{equation*}
+		\begin{cases}
+			\alpha x_1 + \beta = y_1, \\
+			\alpha x_2 + \beta = y_2.
+		\end{cases}
+	\end{equation*}
+	Можно прибавить непрерывно-дифференцируемые функции, которые зануляются на концах (чтобы не портить их):
+	\begin{equation*}
+		M = \mathring{C}^1\left([x_1;x_2]\right) = \left\{\eta \in C^1\left([x_1;x_2]\right): \quad \eta(x_1) = 0, \eta(x_2) = 0\right\}.
+	\end{equation*}
+	Теперь понятно, что функция $u = \hat{u} + \alpha h$, где $h \in M$, $\hat{u} \in D$, является элементом множества $D$. То есть $\forall\,u \in D$ $u = \hat{u} + (u - \hat{u})$, $(u - \hat{u}) \in \mathring{C}^1$.
+	
+	Пусть $u_0 \in D$ --- локальный минимум функционала $F$, тогда для $u_0 \in D$, $h \in M$ верно, что $u = u_0 + \alpha h \in D$. И необходимое условие экстремума на $D$:
+	\begin{equation*}
+		\delta F(u,h) = 0 \quad \forall\,u \in D.
+	\end{equation*}
+	
+	\subsubsection*{\S\,7. Вывод уравнения Эйлера для простейшей задачи вариационного исчисления}
+	
+	Рассмотрим простейший функционал
+	\begin{equation}\label{simple_fun}
+		F[y] = \int\limits_a^b f(x, y, y')\,dx,
+	\end{equation}
+	его область определения:
+	\begin{equation*}
+		D = \left\{y \in C^1([a;b]), \quad y(a) = A,\, y(b) = B\right\}.
+	\end{equation*}
+	Заметим, что такая задача называется задачей с закрепленными концами.
+	
+	Пусть существуют частные производные (первого и второго порядков) функции $f$ по всем переменным. Вычислим первую вариацию (положим $h \in \mathring{C}^1([a;b])$).
+	\begin{equation*}
+		\delta F(y,h) = \left.\frac{d}{d\alpha}F[y + \alpha h]\right|_{\alpha=0} = \left.\frac{d}{d\alpha}\left(\int\limits_a^b f(x, y + \alpha h, y' + \alpha h')\,dx\right)\right|_{\alpha=0} =
+	\end{equation*}
+	\begin{equation*}
+		= \int\limits_a^b \left(f_yh + f_{y'}h'\right)\,dx = \int\limits_a^b \left(f_y - \frac{d}{dx} f_{y'}\right)h\,dx + \left.f_{y'}h\right|_a^b
+	\end{equation*}
+	В последнем переходе мы воспользовались формулой интегрирования по частям, предположив, что $\frac{d}{dx}f_{y'}$ существует. Легко заметить, что последнее слагаемое в полученном выражение равняется нулю, поскольку при подстановке верхнего и нижнего пределов получается $(h(b) - h(a))\,f_{y'}|_a^b = 0$, так как $h(a) = h(b) = 0$.
+	
+	Наложим необходимое условие экстремума:
+	\begin{equation*}
+		\forall\,h \in \mathring{C}^1([a;b]) \quad \delta F(y,h) = 0 \quad \Rightarrow \quad \int\limits_a^b \left(f_y - \frac{d}{dx} f_{y'}\right)h\,dx = 0.
+	\end{equation*}
+	
+	\noindent \textbf{Л\,е\,м\,м\,а 1}\, Лагранжа. \textit{Пусть $\Omega \subset \mathbb{R}^n$, $n \geq 1$, $g \in C(\bar{\Omega})$. Если}
+	\begin{equation*}
+		\int\limits_\Omega g(x)h(x)\,dx = 0 \quad \forall\,h \in C^k(\bar{\Omega}) \text{ \textit{и} } \left.D^\alpha h\right|_{\partial\Omega} = 0,
+	\end{equation*}
+	\textit{где $D^\alpha h = \frac{\partial^{|\alpha|}h}{\partial x_1^{\alpha_1} \dots \partial x_n^{\alpha_n}}$ --- частная производная по мультииндексу $\alpha$: $|\alpha| \leq k - 1$, то}
+	\begin{equation*}
+		g \equiv 0 \text{ \textit{в} } \Omega.
+	\end{equation*}
+	\textbf{Доказательство.} От противного. \\
+	Пусть существует $x^* \in \Omega$\,: $g(x^*) \neq 0$. Не умаляя общности, можем считать, что $g(x^*) > 0$. По условию $g \in C(\bar{\Omega})$, следовательно, по теореме о стабилизации знака существует $\delta > 0$\,: $\forall\,x \in V_\delta(x^*)$ выполняется неравенство $g(x) > 0$. Ясно, что $\|x - x^*\| < \delta \Leftrightarrow V_\delta(x^*) \subset \Omega$, возьмем такую функцию
+	\begin{equation*}
+		\hat{h}(x) = \begin{cases}
+			\left(\delta^2 - \|x - x^*\|^2\right)^{k+1}, & x \in V_\delta(x^*) \\
+			0, & x \notin V_\delta(x^*)
+		\end{cases}, \quad \hat{h} \in \mathring{C}^k(\bar{\Omega}),
+	\end{equation*}
+	она не отрицательна, следовательно,
+	\begin{equation*}
+		\int\limits_{\Omega} g(x)\hat{h}(x)\,dx = \int\limits_{V_\delta(x^*)} g(x)\hat{h}(x)\,dx > 0.
+	\end{equation*}
+	Получили противоречие.$\blacksquare$
+	
+	Сформулируем и докажем эту же лемму в одномерном случае. \textit{Пусть $g \in C([a;b])$. Если}
+	\begin{equation*}
+		\int\limits_a^b g(x)h(x)\,dx = 0 \quad \forall\,h \in C^1([a;b]) \text{ \textit{и} } h(a) = h(b) = 0,
+	\end{equation*}
+	то
+	\begin{equation*}
+		g \equiv 0 \text{ \textit{на} } [a;b].
+	\end{equation*}
+	\textbf{Доказательство.} От противного. \\
+	Пусть существует $x^* \in [a;b]$\,: $g(x^*) \neq 0$. Не умаляя общности, можем считать, что $g(x^*) > 0$. По условию $g \in C([a;b])$, следовательно, по~теореме о стабилизации знака существует $\delta > 0$\,: $\forall\,x: |x - x^*| < \delta$ выполняется неравенство $g(x) > 0$. Возьмем такую функцию
+	\begin{equation*}
+		h(x) = \begin{cases}
+			\left(\delta^2 - |x - x^*|^2\right)^2, & x \in V_\delta(x^*) \\
+			0, & x \notin V_\delta(x^*)
+		\end{cases}, \quad h \in \mathring{C}^1([a;b]),
+	\end{equation*}
+	она не отрицательна, следовательно,
+	\begin{equation*}
+		\int\limits_a^b g(x)h(x)\,dx = \int\limits_{V_\delta(x^*)} g(x)h(x)\,dx > 0.
+	\end{equation*}
+	Получили противоречие.$\blacksquare$
+	
+	Применяя эту лемму, получаем \emph{уравнение Эйлера}:
+	\begin{equation}\label{Euler}
+		f_y - \frac{d}{dx}f_{y'} = 0
+	\end{equation}
+	
+	Покажем, что можно обойтись без предположения о существовании производной $\frac{d}{dx}f_{y'}$.
+	
+	\vspace*{0.5em}
+	\noindent \textbf{Л\,е\,м\,м\,а 2.} \textit{Пусть $n = 1$. Если $g \in C([a;b])$ и при любом $h \in \mathring{C}^1([a;b])$}
+	\begin{equation*}
+		\int\limits_a^b g(x)h'(x)\,dx = 0,
+	\end{equation*}
+	\textit{то $g(x) = const$, $x \in [a;b]$.}
+	
+	\vspace*{0.5em}
+	\noindent \textbf{Доказательство.} Рассмотрим интеграл с переменным верхним пределом
+	\begin{equation*}
+		p(x) = \int\limits_a^x \left(g(t) - \alpha\right)\,dt, \quad \text{где } \alpha = \frac{1}{b - a} \int\limits_a^b g(t)\,dt \in \mathbb{R}.
+	\end{equation*}
+	Посмотрим как ведет себя функция $p$ на концах:
+	\begin{equation*}
+		p(a) = \int\limits_a^a (g(t) - \alpha)\,dt = 0, \qquad p(b) = \int\limits_a^b g(t)\,dt - (b - a)\alpha = 0,
+	\end{equation*}
+	ясно, что $p \in \mathring{C}^1([a;b])$.
+	
+	По теореме Барроу $p'(x) = g(x) - \alpha$. Тогда
+	\begin{equation*}
+		\int\limits_a^b g(x)p'(x)\,dx = \int\limits_a^b g(x)(g(x) - \alpha)\,dx = 0,
+	\end{equation*}
+	вычтем $\alpha p(b)$, равное нулю:
+	\begin{equation*}
+		\int\limits_a^b g(x)(g(x) - \alpha)\,dx - \int\limits_a^b \alpha(g(x) - \alpha)\,dx = \int\limits_a^b (g(x) - \alpha)^2\,dx = 0,
+	\end{equation*}
+	следовательно, $g \equiv \alpha$ на $[a;b]$.$\blacksquare$
+	
+	\vspace*{0.5em}
+	\noindent \textbf{Л\,е\,м\,м\,а 3.} \textit{Пусть функции $A, B \in C([a;b])$. Если}
+	\begin{equation*}
+		\int\limits_a^b (A(x)h(x) + B(x)h'(x))\,dx = 0 \quad \forall\,h \in \mathring{C}^1([a;b]),
+	\end{equation*}
+	\textit{то существует частная производная}
+	\begin{equation*}
+		\frac{\partial B(x)}{\partial x} = A(x).
+	\end{equation*}
+	\textbf{Доказательство.} Пусть есть интеграл с переменным верхним пределом
+	\begin{equation*}
+		p(x) = \int\limits_a^x A(t)\,dt.
+	\end{equation*}
+	Тогда по теореме Барроу $p'(x) = A(x)$, следовательно,
+	\begin{equation*}
+		\int\limits_a^b (p'(x)h(x) + B(x)h'(x))\,dx = 0.
+	\end{equation*}
+	Проинтегрируем по частям с учетом $h(a) = h(b) = 0$:
+	\begin{equation*}
+		\int\limits_(B(x) - p(x))h'(x)\,dx = 0 \quad \forall\,h \in \mathring{C}^1([a;b]),
+	\end{equation*}
+	отсюда по лемме 2 следует, что
+	\begin{equation*}
+		B(x) - p(x) = C = const \quad \Rightarrow \quad B(x) = p(x) + C = \int\limits_a^x A(t)\,dt + C,
+	\end{equation*}
+	следовательно, существует $B'(x)$: $B'(x) = A(x)$.$\blacksquare$
+	
+	Таким образом, уравнение Эйлера получается без предположения о существовании производной $\frac{d}{dx}f_{y'}$:
+	\begin{equation*}
+		f_y = A, f_{y'} = B \quad \Rightarrow \quad \delta F = \int\limits_a^b (Ah + Bh')\,dx = 0 \, \forall\,h \in \mathring{C}^1([a;b]) \quad \Rightarrow
+	\end{equation*}
+	\begin{equation*}
+		\Rightarrow \quad \exists\,\frac{d}{dx}f_{y'} = f_y \quad \Leftrightarrow \quad \eqref{Euler}.
+	\end{equation*}
+	
+	Если существует $y''$ и все частные производные функции $f$, то уравнение \eqref{Euler} можно раскрыть:
+	\begin{equation}\label{quasy_Euler}
+		f_y - f_{y'x} - f_{y'y}y' - f_{y'y'}y'' = 0,
+	\end{equation}
+	такое уравнение называется \emph{квазилинейным} (линейным относительно старшей производной).
+	
+	Покажем, что если $f_{y'y'} \neq 0$, то у экстремали существует $y''$. Рассмотрим функционал
+	\begin{equation*}
+		J[y] = \int\limits_{-1}^1 y^2(1 - y')^2\,dx, \quad y(-1) = 0,\, y(1) = 1.
+	\end{equation*}
+	Подынтегральная функция в квадрате, значит, она не отрицательна, поэтому можно утверждать, что $\min{J} \geq 0$. Пусть
+	\begin{equation*}
+		v(x) = \begin{cases}
+			0, & x \leq 0 \\
+			x, & x > 0
+		\end{cases},
+	\end{equation*}
+	тогда $J[v] = 0$. Кроме того, очевидно, что $\min{J}[y] \equiv 0 = J[v]$.
+	
+	Функция $v$ не имеет второй производной в классическом смысле, так как
+	\begin{equation*}
+		v'(x) = \begin{cases}
+			0, & x \leq 0 \\
+			1, & x > 0
+		\end{cases}
+	\end{equation*}
+	терпит разрыв. Поймем, что уравнение Эйлера выполняется. Посчитаем
+	\begin{equation*}
+		f_y = 2y(1-y')^2, \qquad f_{y'} = -2y^2(1-y').
+	\end{equation*}
+	Функция $v$ обращается в ноль на промежутке $[-1;0]$, следовательно, требование $f_{y'y'} \neq 0$ выполнено: $f_{y'y'} = y^2$. А уравнение Эйлера:
+	\begin{equation*}
+		2y\left(1-y'\right)^2 + \frac{d}{dx}\left(2y^2(1-y')\right) = 0,
+	\end{equation*}
+	то есть функция $v$ удовлетворяет этому уравнению.
+	
+	\begin{equation*}
+		\frac{d}{dx}f_{y'}(x,y,y') = \lim_{\Delta x \rightarrow 0} \frac{f_{y'}(x+\Delta x, y(x+\Delta x), y'(x+\Delta x)) - f_{y'}(x,y,y')}{\Delta x} =
+	\end{equation*}
+	упростим выражение, используя $\Delta u = u(x + \Delta x) - u(x)$:
+	\begin{equation*}
+		= \lim_{\Delta x \rightarrow 0} \frac{f_{y'}(x + \Delta x, y + \Delta y, y' + \Delta y') - f_{y'}(x,y,y')}{\Delta x} =
+	\end{equation*}
+	теперь воспользуемся теоремой Лагранжа о среднем (значение в точке между $x$ и $x + \Delta x$)
+	\begin{equation*}
+		= \lim_{\Delta x \rightarrow 0} \frac{\tilde{f}_{y'x}\Delta x + \tilde{\tilde{f}}_{y'y}\Delta y + \tilde{\tilde{\tilde{f}}}_{y'y'}\Delta y'}{\Delta x} = f_{y'x} + f_{y'y}y' + f_{y'y'}\lim_{\Delta x \rightarrow 0} \frac{\Delta y'}{\Delta x},
+	\end{equation*}
+	поскольку точка стремится к $x$, то в последнем переходе сняли волны с функций. Подставим это в уравнение Эйлера \eqref{Euler} и учтем, что $f_{y'y'} \neq 0$, получим
+	\begin{equation*}
+		\lim_{\Delta x \rightarrow 0} \frac{\Delta y'}{\Delta x} = \frac{1}{f_{y'y'}}\left(f_y - f_{y'x} - f_{y'y}y'\right).
+	\end{equation*}
+	Правая часть выражения существует, значит существует и левая, то есть предел. Таким образом, производная $y''$ тоже существует.
+	
+	\subsubsection*{\S\,8. Естественные граничные условия}
+	
+	Рассмотрим задачу о брахистохроне (см. \S\,6), и пусть на правом конце нет условия --- поставили стенку.
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[gray, thick, ->] (0,0) -- (3,0);
+			\draw[gray, thick, ->] (0,0) -- (0,-2);
+			\filldraw[black] (0,0) circle (1pt) node[above]{$A$};
+			\draw (3,0) node[above]{$x$};
+			\draw (0,-2) node[left]{$u$};
+			\draw[gray] (2,0.2) -- (2,-2);
+			\draw[gray] (2,-2) -- (2.2,-1.8);
+			\draw[gray] (2,-1.8) -- (2.2,-1.6);
+			\draw[gray] (2,-1.6) -- (2.2,-1.4);
+			\draw[gray] (2,-1.4) -- (2.2,-1.2);
+			\draw[gray] (2,-1.2) -- (2.2,-1);
+			\draw[gray] (2,-1) -- (2.2,-0.8);
+			\draw[gray] (2,-0.8) -- (2.2,-0.6);
+			\draw[gray] (2,-0.6) -- (2.2,-0.4);
+			\draw[gray] (2,-0.4) -- (2.2,-0.2);
+			\draw[gray] (2,-0.2) -- (2.2,0);
+			\draw[gray] (2,0) -- (2.2,0.2);
+			\draw[gray, dotted] (0,-1.2) -- (2,-1.2);
+			\draw [black] (0,0) to [out=-80,in=180] (2,-1.2);
+			\draw [gray, dotted] (0,0) to [out=-60,in=165] (2,-1.2);
+			\draw [gray, dotted] (0,0) to [out=-100,in=205] (2,-1.2);
+		\end{tikzpicture}
+	\end{center}
+	Пусть функционал $F$ такой
+	\begin{equation*}
+		F[u] = \int\limits_a^b f(x, u, u')\,dx,
+	\end{equation*}
+	а его область определения:
+	\begin{equation*}
+		D = \left\{u \in C^1([a;b]), \quad u(a) = A\right\}.
+	\end{equation*}
+	Посчитаем первую вариацию при $h \in C^1([a;b])$:
+	\begin{equation*}
+		\delta F(u,h) = \left.\frac{d}{d\alpha}\left(\int\limits_a^b f(x, u + \alpha h, u' + \alpha h')\,dx\right)\right|_{\alpha=0} = \int\limits_a^b \left(f_uh + f_{u'}h'\right)\,dx =
+	\end{equation*}
+	\begin{equation*}
+		= \int\limits_a^b\left(f_u - \frac{d}{dx}f_{u'}\right)h\,dx + \left.f_{u'}\right|_{x=b}h(b) = 0 \qquad \forall\,h:\, h(a) = 0.
+	\end{equation*}
+	
+	Пусть нарисованная кривая дает экстремум. Она кончается в некоторой точке, в этой же точке кончаются и другие кривые, поэтому можно сказать, что среди них данная экстремаль также является экстремалью. Таким образом, экстремум на такой кривой является экстремумом и по более узкому множеству --- множеству тех кривых, которые кончаются в этой же точке для любой гладкой функции $h$.
+	
+	С учетом этого факта и того, что при $h \in \mathring{C}^1([a;b])$ уравнение Эйлера выполнено, понимаем, что уравнение Эйлера должно быть выполнено $\forall\,h \in C^1([a;b])$, так как функция $u$ не зависит от $h$. То есть $f_{u'}|_{x=b} = 0$.
+	
+	С другой стороны, интеграл должен быть ограничен, а поскольку первая вариация равна нулю, то все слагаемые будут ограничены, но по условию задачи на $h(b)$ нет никаких ограничений, значит, остается потребовать равенства $f_{u'}|_{x=b} = 0$.
+	
+	Выражение
+	\begin{equation*}
+		\left.f_{u'}\right|_{x=b} = 0
+	\end{equation*}
+	и есть \emph{естественное граничное условие}.
+	
+	Заметим, что для левого конца все аналогично.
+	
+	\subsubsection*{\S\,9. Обобщения простейшей задачи вариационного исчисления}
+	
+	\emph{Обобщение на старшие производные.}
+
+	\noindent Рассмотрим функционал
+	\begin{equation*}
+		F[u] = \int\limits_a^b f(x, u, u', u'')\,dx,
+	\end{equation*}
+	\begin{equation*}
+		D(F) = \left\{u \in C^2([a;b]), \quad u(a) = A_1, u(b) = B_1; u'(a) = A_2, u'(b) = B_2\right\}.
+	\end{equation*}
+	Посчитаем первую вариацию $\delta F(u,h) = \left.\frac{d}{d\alpha}F[u + \alpha h]\right|_{\alpha=0}$, которая по необходимому условию экстремума равна нулю $\forall\,h \in \mathring{C}^2([a;b])$:
+	\begin{equation*}
+		\delta F = \int\limits_a^b \left(f_uh + f_{u'}h' + f_{u''}h''\right)\,dx = \int\limits_a^b \left(f_u - \frac{d}{dx}f_{u'} + \frac{d^2}{dx^2}f_{u''}\right)h\,dx = 0
+	\end{equation*}
+	По лемме 1 выражение
+	\begin{equation*}
+		f_u - \frac{d}{dx}f_{u'} + \frac{d^2}{dx^2}f_{u''} = 0
+	\end{equation*}
+	есть уравнение Эйлера. Нетрудно догадаться, как будет выглядеть уравнение Эйлера для функционала
+	\begin{equation*}
+		F[u] = \int\limits_a^b f(x, u, u', u'', \dots, u^{(k)})\,dx,
+	\end{equation*}
+	\begin{equation*}
+		D(F) = \left\{
+		\begin{array}{lcc}
+			\multirow{4}{*}{$u \in C^k([a;b])$,} & u(a) = A_1, & u(b) = B_1 \\
+			& u'(a) = A_2, & u'(b) = B_2 \\
+			& \dots & \dots \\
+			& u^{(k-1)}(a) = A_k, & u^{(k-1)}(b) = B_k
+		\end{array}
+		\right\}.
+	\end{equation*}
+	Чтобы не <<испортить>> данные краевые условия, назовем $h$ допустимыми функциями и положим
+	\begin{equation*}
+		M = \left\{
+		\begin{array}{lc}
+			\multirow{4}{*}{$h \in C^k([a;b])$:} & h(a) = h(b) = 0 \\
+			& h'(a) = h'(b) = 0 \\
+			& \dots \\
+			& h^{(k-1)}(a) = h^{(k-1)}(b) = 0
+		\end{array}
+		\right\}.
+	\end{equation*}
+	Тогда необходимое условие экстремума:
+	\begin{equation*}
+		\delta F(u,h) = \left.\frac{d}{d\alpha}F[u + \alpha h]\right|_{\alpha=0} = \int\limits_a^b \left(f_uh + f_{u'}h' + \dots + f_{u^{(k)}}h^{(k)}\right)\,dx = 0,
+	\end{equation*}
+	интегрируем по частям и, применяя лемму 1, получаем уравнение Эйлера:
+	\begin{equation*}
+		f_u - \frac{d}{dx}f_{u'} + \frac{d^2}{dx^2}f_{u''} - \dots + \frac{d^k}{dx^k}f_{u^{(k)}}(-1)^k = 0.
+	\end{equation*}
+	
+	\vspace*{1em}
+	\emph{Обобщение на вектор-функции.}
+	
+	\noindent Пусть $\vec{u} = (u_1, u_2, \dots, u_m)^T$ --- вектор-функция. Рассмотрим функционал
+	\begin{equation*}
+		F[\vec{u}] = \int\limits_a^b f\left(x, \vec{u}, \vec{u}'\right)\,dx,
+	\end{equation*}
+	\begin{equation*}
+		D(F) = \left\{\vec{u} \in C^1([a;b]), \quad \vec{u}(a) = \vec{A},\, \vec{u}(b) = \vec{B}\right\},
+	\end{equation*}
+	тогда допустимые функции $\vec{h} \in \mathring{C}^1([a;b])$, то есть $\vec{h}(a) = \vec{0},\, \vec{h}(b) = \vec{0}$.
+	
+	Представим этот функционал в виде
+	\begin{equation*}
+		F[u_1 + \alpha_1h_1, u_2 + \alpha_2h_2, \dots, u_m + \alpha_mh_m] = \varphi(\alpha_1, \alpha_2, \dots, \alpha_m),
+	\end{equation*}
+	где функция $\varphi$ --- просто функция многих переменных. Если на кривой $\vec{u}$ достигается экстремум для любой фиксированной вектор-функции $\vec{h}$, то на кривой $\varphi$ достигается экстремум при $\alpha_1 = \alpha_2 = \dots = \alpha_m = 0$. Тогда необходимое условие экстремума:
+	\begin{equation*}
+		\begin{cases}
+			\varphi_{\alpha_1}(0,0,\dots,0) = 0, \\
+			\dots \\
+			\varphi_{\alpha_m}(0,0,\dots,0) = 0.
+		\end{cases}
+	\end{equation*}
+	Следовательно, 
+	\begin{equation*}
+		\left.\frac{\partial}{\partial\alpha_j}F[u_1 + \alpha_1h_1, u_2 + \alpha_2h_2, \dots, u_m + \alpha_mh_m]\right|_{\vec{\alpha}=\vec{0}} = 0, \quad j = 1, 2, \dots, m,
+	\end{equation*}
+	отсюда получаем систему уравнений Эйлера:
+	\begin{equation*}
+		f_{u_j} - \frac{d}{dx}f_{u'_j} = 0, \qquad j = 1, 2, \dots, m.
+	\end{equation*}
+	
+	\emph{Обобщение на функции многих переменных.}
+	
+	\noindent Пусть $\Omega \subset \mathbb{R}^n$, функция $u = u(x)$, $x \in \mathbb{R}^n$. Рассмотрим функционал
+	\begin{equation*}
+		J[u] = \int\limits_\Omega f(x, u, u_{x_1}, u_{x_n}, \dots, u_{x_n})\,dx,
+	\end{equation*}
+	\begin{equation*}
+		D(J) = \left\{u \in C^1(\bar{\Omega}), \quad \left.u\right|_{\partial\Omega} = g\right\}.
+	\end{equation*}
+	Область $D =\{\hat{u}\} + M$, где $M = \mathring{C}^1(\bar{\Omega})$, иначе говоря, если $h \in M$, то $h|_{\partial\Omega} = 0$.
+	
+	Необходимое условие экстремума: $\delta J(u,h) = 0 \quad \forall\,h \in M$. Рассмотрим первую вариацию
+	\begin{equation*}
+		\delta J(u,h) = \left.\frac{d}{d\alpha}\left(\int\limits_\Omega f(x, u + \alpha h, u_{x_1} + \alpha h_{x_1}, \dots, u_{x_n} + \alpha h_{x_n})\,dx\right)\right|_{\alpha=0} =
+	\end{equation*}
+	\begin{equation*}
+		= \int\limits_\Omega \left(f_uh + f_{u_{x_1}}h_{x_1} + f_{u_{x_2}}h_{x_2} + \dots + f_{u_{x_n}}h_{x_n}\right)\,dx = 0,
+	\end{equation*}
+	проинтегрируем по частям.
+	
+	Положим $n = 3$ и вспомним теорему Остроградского---Гаусса:
+	\begin{equation*}
+		\iiint\limits_\Omega \text{div}\vec{a}\,dx = \oiint\limits_{\partial\Omega}\left(\vec{a},\vec{n}\right)\,d\sigma.
+	\end{equation*}
+	Напомним следующие выражения
+	\begin{equation*}
+		\vec{a} = a_1\vec{i} + a_2\vec{j} + a_3\vec{k} \quad \Rightarrow \quad \text{div}\vec{a} = \frac{\partial a_1}{\partial x_1} + \frac{\partial a_2}{\partial x_2} + \frac{\partial a_3}{\partial x_3},
+	\end{equation*}
+	\begin{equation*}
+		\left(\vec{a},\vec{n}\right) = a_1n_1 + a_2n_2 + a_3n_3,
+	\end{equation*}
+	и поскольку $a_1, a_2, a_3$ не зависят друг от друга, будем требовать верности трех равенств. Пусть $a_1 = uv$, $a_2 = a_3 = 0$, тогда
+	\begin{equation*}
+		\int\limits_\Omega (uv)_{x_1}\,dx = \int\limits_{\partial\Omega} uvn_1\,d\sigma,
+	\end{equation*}
+	где $\vec{n} = \{n_1, n_2, n_3\}$ --- единичный вектор нормали, компоненты которого являются направляющими косинусами:
+	\begin{equation*}
+		\cos{\left(\widehat{\vec{n},\vec{i}}\right)} = \frac{\left(\vec{n},\vec{i}\right)}{\|\vec{n}\|\|\vec{i}\|} = n_1, \quad \cos{\left(\widehat{\vec{n},\vec{j}}\right)} = n_2, \quad \cos{\left(\widehat{\vec{n},\vec{k}}\right)} = n_3.
+	\end{equation*}
+	Перепишем теорему с учетом этого факта:
+	\begin{equation*}
+		\int\limits_\Omega u_{x_1}v\,dx + \int\limits_\Omega uv_{x_1}\,dx = \int\limits_{\partial\Omega} uv\cos\left(\vec{n},\vec{ox_1}\right)\,d\sigma.
+	\end{equation*}	
+	Таким образом, формула интегрирования по частям в $\mathbb{R}^n$
+	\begin{equation}\label{int_parts}
+		\int\limits_\Omega u_{x_j}v\,dx = -\int\limits_\Omega uv_{x_j}\,dx + \int\limits_{\partial\Omega} uv\cos\left(\vec{n},\vec{ox_j}\right)\,d\sigma.
+	\end{equation}
+	
+	Вернемся к первой вариации и применим формулу \eqref{int_parts} с учетом условия $h|_{\partial\Omega} = 0$ (то есть все интегралы по границе нули). Получаем
+	\begin{equation*}
+		\int\limits_\Omega \left(f_u - \frac{\partial}{\partial x_1}f_{u_{x_1}} - \frac{\partial}{\partial x_2}f_{u_{x_2}} - \dots - \frac{\partial}{\partial x_n}f_{u_{x_n}}\right)h\,dx = 0 \quad \forall\,h \in M.
+	\end{equation*}
+	Применяя лемму 1, получаем \emph{уравнение Эйлера---Остроградского}:
+	\begin{equation*}
+		f_u - \frac{\partial}{\partial x_1}f_{u_{x_1}} - \frac{\partial}{\partial x_2}f_{u_{x_2}} - \dots - \frac{\partial}{\partial x_n}f_{u_{x_n}} = 0.
+	\end{equation*}
+	
+	Поймем следующие два примера.
+	\begin{itemize}
+		\item [1.] Пусть $\Omega \subset \mathbb{R}$, рассмотрим функционал
+		\begin{equation*}
+			F[u] = \int\limits_\Omega \left(|\nabla u|^2 + 2ug\right)\,dx, \quad \left.u\right|_{\partial\Omega} = \varphi.
+		\end{equation*}
+		Заметим: $\nabla u = (u_{x_1}, u_{x_2}, \dots, u_{x_n})^T$, следовательно,
+		\begin{equation*}
+			|\nabla u|^2 = \sum_{j=1}^{n}u_{x_j}^2.
+		\end{equation*}
+		Необходимое условие экстремума:
+		\begin{equation*}
+			\delta F(u,h) = \left.\frac{d}{d\alpha}F[u + \alpha h]\right|_{\alpha=0} = 0 \quad \forall\,h \in \mathring{C}^1(\bar{\Omega}).
+		\end{equation*}
+		Итог:
+		\begin{equation*}
+			\int\limits_\Omega \left(2g - 2\sum_{j=1}^{n}u_{x_jx_j}\right)h\,dx + \int\limits_{\partial\Omega} 2\sum_{j=1}^{n} u_{x_j}\cos\left(\vec{n},\vec{ox_j}\right)h\,d\sigma = 0,
+		\end{equation*}
+		последнее слагаемое здесь равно нулю, так как $h|_{\partial\Omega} = 0$. Следовательно,
+		\begin{equation*}
+			\begin{cases}
+				\Delta u = g, & x \in \Omega \\
+				\left.u\right|_{\partial\Omega} = \varphi
+			\end{cases}.
+		\end{equation*}
+		Такая задача называется \emph{задачей Дирихле}.
+		\item [2.] Аналогично, но пусть нет условия на границе. Как и в одномерном случае здесь выполнено уравнение Эйлера---Остроградского. Тогда понятно, что
+		\begin{equation*}
+			\int\limits_{\partial\Omega} 2\sum_{j=1}^{n}u_{x_j}n_jh\,d\sigma = 0,
+		\end{equation*}
+		отсюда выводим естественное граничное условие
+		\begin{equation*}
+			\left.\sum_{j=1}^{n} u_{x_j}n_j\right|_{\partial\Omega} = \left.\left(\nabla u, \vec{n}\right)\right|_{\partial\Omega} = \left.\frac{\partial u}{\partial n}\right|_{\partial\Omega} = 0.
+		\end{equation*}
+		Таким образом,
+		\begin{equation*}
+			\begin{cases}
+				\Delta u = g, & x \in \Omega \\
+				\left.\frac{\partial u}{\partial n}\right|_{\partial\Omega} = 0
+			\end{cases}.
+		\end{equation*}
+		Такая задача называется \emph{задачей Неймана}.
+	\end{itemize}
+
+	\subsubsection*{\S\,10. Изопериметрическая задача}
+	
+	Рассматриваемая нами задача будет задачей на условный экстремум, где условия задаются через функционал такого же типа.
+	
+	Самой известной изопереметрической задачей является \emph{задача Дидоны}: найти максимум площади при заданном периметре.
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[thick, ->] (0,0) -- (5,0);		
+			\draw (5,0) node[below]{$x$};
+			\draw (2.5,2) node[right]{$y$};
+			\filldraw[black] (1,0) circle (1pt) node[below]{$-a$};
+			\filldraw[black] (4,0) circle (1pt) node[below]{$a$};
+			\draw [black,fill=gray] (1,0) to [out=70,in=190] (1.7,0.9) to [out=0,in=180] (2.3,0.8) to [out=10,in=180] (3.2,1.2) to [out=-10,in=110] (4,0) -- (1,0);
+			\draw[thick, ->] (2.5,-0.5) -- (2.5,2);
+			\draw (0.9,1.5) node[above]{$y > 0$};
+			\draw (3.6,1.1) node[right]{$y= y(x)$};
+		\end{tikzpicture}
+	\end{center}
+	Ответом на эту задачу является окружность.
+	
+	Пусть $l$ --- длина кривой, огибающей выделенную цветом площадь, причем очевидно, что $l > 2a$. Тогда задача состоит в поиске максимума функционала
+	\begin{equation*}
+		F[y] = \int\limits_{-a}^a y(x)\,dx \quad \text{при условии} \quad G[y] = \int\limits_{-a}^a \sqrt{1 + (y'(x))^2}\,dx = l.
+	\end{equation*}
+	Пусть $F$ и $G$ заданы на $D = \{\hat{u}\} + M = D(F) = D(G)$.
+	
+	\vspace*{1em}
+	\noindent \textbf{Т\,е\,о\,р\,е\,м\,а} Эйлера. \textit{Если кривая $u$ доставляет экстремум функционалу $F[u]$ при условии $G[u] = l$ и не является экстремалью функционала $G[u]$, то существует $\lambda \in \mathbb{R}$ такое, что кривая $u$ --- экстремаль функционала $(F + \lambda G)[u]$.} (Замечание: $\lambda$ называют множителем Лагранжа.)
+	
+	\vspace*{0.5em}
+	\noindent \textbf{Доказательство.} Не умаляя общности, будем рассматривать минимум. Пусть функции $h, \eta \in M$. При достаточно малых $\alpha, \beta$ справедливо, что $F[u] \leq F[u + \alpha h + \beta \eta]$.
+	
+	По условию, кривая $u$ не является экстремалью функционала
+	$G$, значит, существует такая функция $\eta \in M$, что $\delta G(u,\eta) \neq 0$.
+	
+	Рассмотрим функционал $G[u + \alpha h + \beta \eta] = \varphi(\alpha,\beta)$, посчитаем
+	\begin{equation*}
+		\left.\frac{\partial\varphi}{\partial\beta}\right|_{\alpha, \beta = 0} = \left.\frac{\partial}{\partial\beta}G[u + \alpha h + \beta \eta]\right|_{\alpha, \beta = 0} = \left.\frac{\partial}{\partial\beta}G[u + \beta \eta]\right|_{\beta = 0} = \delta G(u,\eta).
+	\end{equation*}
+	Пусть эта функция $\eta$ и есть та самая, для которой $\delta G(u,\eta) \neq 0$, тогда
+	\begin{equation*}
+		\frac{\partial\varphi}{\partial\beta}(0,0) \neq 0.
+	\end{equation*}
+	Следовательно, по теореме о неявной функции, при достаточно малых $|\alpha| < \varepsilon$ такое уравнение неявно задает $\beta(\alpha) = \beta$, $\beta(0) = 0$.
+	
+	Мы ищем экстремум среди тех функций, для которых выполняется $G[u] = l$, а значит, $\varphi(0,0) = l$. В некоторой окрестности нуля ($|\alpha| < \varepsilon$) будет верным и то, что $\varphi(\alpha,\beta) = l$. Итак,
+	\begin{equation*}
+		\frac{d\varphi(\alpha,\beta(\alpha))}{d\alpha} = \varphi_\alpha + \varphi_\beta\,\beta'(\alpha).
+	\end{equation*}
+	Посчитаем теперь в этой окрестности
+	\begin{equation*}
+		\left.\frac{d}{d\alpha}G[u + \alpha h + \beta(\alpha)\eta]\right|_{\alpha=0} = \delta G(u,h) + \delta G(u,\eta)\,\beta'(0) = 0,
+	\end{equation*}
+	второе слагаемое здесь положительно, так как $G[u] = const$. Поэтому
+	\begin{equation*}
+		\beta'(0) = -\frac{\delta G(u,h)}{\delta G(u,\eta)}.
+	\end{equation*}
+	
+	Аналогично рассмотрим $F[u + \alpha h + \beta(\alpha)\eta] = \psi(\alpha)$. Функция $\psi$ имеет минимум при $\alpha=0$, следовательно, необходимое условие экстремума: $\psi'(0) = 0$, то есть $\forall\,h \in M$
+	\begin{equation*}
+		\left.\frac{d}{d\alpha}F[u + \alpha h + \beta(\alpha)\eta]\right|_{\alpha=0} = \delta F(u,h) - \frac{\delta F(u,\eta)}{\delta G(u,\eta)}\delta G(u,h) = 0.
+	\end{equation*}
+	Функция $\eta$ фиксирована, значит эта дробь имеет конкретное значение, обозначим ее как $-\lambda$, получаем
+	\begin{equation*}
+		\delta F(u,h) + \lambda\,\delta G(u,h) = 0,
+	\end{equation*}
+	таким образом, кривая $u$ --- экстремаль функционала $F + \lambda G$. $\blacksquare$
+	
+	\subsubsection*{\S\,11. Вторая вариация. Достаточное условие экстремума}
+	
+	Рассмотрим функционал $F[u]$, $u \in D$, где $D = \{\hat{u}\} + M$, $D \subset B$ ($B$~--- линейное нормированное пространство).
+	
+	Пусть $F[u + \alpha h] = \varphi(\alpha)$, где $u$ и $h \in M$ фиксированы, а $\varphi~\in~C^2\,(C^1)$. Запишем формулу Тейлора второго порядка в окрестности нуля с~остатком в форме Пеано:
+	\begin{equation*}
+		\varphi(\alpha) = \varphi(0) + \varphi'(0)\alpha + \frac{1}{2}\varphi''(0)\alpha^2 + o(\alpha^2), \quad \alpha \rightarrow 0.
+	\end{equation*}
+	
+	\emph{Второй вариацией} функционала $F$ называется
+	\begin{equation*}
+		\delta^2F(u,h) = \left.\frac{1}{2}\frac{d^2}{d\alpha^2}F[u + \alpha h]\right|_{\alpha=0}.
+	\end{equation*}
+	
+	Формула Тейлора с остатком в форме Лагранжа выглядит как
+	\begin{equation*}
+		\varphi(\alpha) = \varphi(0) + \varphi'(0)\alpha + \frac{1}{2}\varphi''(\theta\alpha)\alpha^2, \quad 0 < \theta < 1.
+	\end{equation*}
+	Если $\alpha = 1$, то
+	\begin{equation*}
+		\varphi(1) = \varphi(0) + \varphi'(0) + \frac{1}{2}\varphi''(\theta),
+	\end{equation*}
+	причем $\varphi'(0) = 0$, поскольку кривая $u$ является экстремалью. Рассмотрим последнее слагаемое и положим $\beta = \alpha - \theta$:
+	\begin{equation*}
+		\frac{1}{2}\varphi''(\theta) = \left.\frac{1}{2}\frac{d^2}{d\alpha^2}F[u + \alpha h]\right|_{\alpha=\theta} = \left.\frac{1}{2}\frac{d^2}{d\beta^2}F[u + \beta h + \theta h]\right|_{\beta=0} = \delta^2(u + \theta h, h),
+	\end{equation*}
+	таким образом,
+	\begin{equation}\label{2nd_var}
+		F[u + h] = F[u] + \delta^2(u + \theta h, h).
+	\end{equation}
+	
+	Сформулируем теперь \textit{достаточное условие экстремума}.
+	
+	\vspace*{1em}
+	\noindent \textbf{Т\,е\,о\,р\,е\,м\,а 1} (достаточное условие локального экстремума).\\ \textit{Пусть кривая $u$ --- экстремаль функционала $F$ и пусть существует $\rho > 0$, такой что}
+	\begin{equation}\label{th_locextr_cond}
+		\forall\,v \in V_\rho(u) \cap D, \quad \forall\,h: \|h\| < \rho \quad \Rightarrow \quad \delta^2F(u,h) \geq 0,
+	\end{equation}
+	\textit{тогда функционал $F$ имеет локальный минимум на кривой $u$.}
+	
+	\vspace*{0.5em}
+	\noindent \textbf{Доказательство.} Достаточно доказать, что $\forall\,w \in V_\rho(u) \cap D$ справедливо неравенство $F[w] \geq F[u]$.
+	
+	Пусть $w - u = h$, тогда выполнено условие $\|h\| < \rho$. Рассмотрим
+	\begin{equation*}
+		F[w] - F[u] = F[u + h] - F[u] \stackrel{\eqref{2nd_var}}{=} \delta^2F(u + \theta h,h) = \delta^2F(v,h) \stackrel{\eqref{th_locextr_cond}}{\geq} 0,
+	\end{equation*}
+	следовательно, $F[w] \geq F[u]$.$\blacksquare$
+	
+	\vspace*{1em}
+	\noindent \textbf{Т\,е\,о\,р\,е\,м\,а 2} (необходимое условие локального экстремума). \textit{Если кривая $u$ --- локальный минимум функционала $F$, то}
+	\begin{equation*}
+		\delta^2F(u,h) \geq 0 \qquad \forall\,h \in M.
+	\end{equation*}
+	\textbf{Доказательство.} От противного.\\
+	Пусть существует функция $h_0 \in M$ такая, что $\delta^2F(u,h_0) < 0$. Положим $F[u + \varepsilon h_0] = \varphi(\varepsilon)$ и разложим в ряд Тейлора:
+	\begin{equation*}
+		\varphi(\varepsilon) = \varphi(0) + \varphi'(0)\varepsilon + \frac{1}{2}\varphi''(0)\varepsilon^2 + o(\varepsilon^2), \quad \varepsilon \rightarrow 0.
+	\end{equation*}
+	По условию $u$ --- экстремаль, значит, $\varphi'(0) = 0$. Тогда
+	\begin{equation*}
+		\frac{\varphi(\varepsilon) - \varphi(0)}{\varepsilon^2} = \frac{1}{2}\varphi''(0) + \frac{o(\varepsilon^2)}{\varepsilon^2} \xrightarrow[\varepsilon \rightarrow 0]{} \delta^2F(u, h_0) < 0,
+	\end{equation*}
+	следовательно, $\varphi(\varepsilon) < \varphi(0)$, то есть $F[u + \varepsilon h_0] < F[u]$. Таким образом, пришли к противоречию.$\blacksquare$
+	
+	\vspace*{1em}
+	\noindent \textbf{Т\,е\,о\,р\,е\,м\,а 3} (достаточное условие глобального экстремума). \textit{Пусть кривая $u$ --- экстремаль функционала $F$ и пусть}
+	\begin{equation}\label{th_extr_cond}
+		 \delta^2F(u,h) \geq 0 \qquad \forall\,v \in D, \quad \forall\,h \in M,
+	\end{equation}
+	\textit{тогда кривая $u$ доставляет функционалу $F$ глобальный минимум на~$D$.}
+	
+	\vspace*{0.5em}
+	\noindent \textbf{Доказательство.} Достаточно доказать, что $\forall\,w \in D \quad F[w] \geq F[u]$.
+	
+	Пусть $w - u = h$, и рассмотрим
+	\begin{equation*}
+	F[w] - F[u] = F[u + h] - F[u] \stackrel{\eqref{2nd_var}}{=} \delta^2F(u + \theta h,h) = \delta^2F(v,h) \geq 0
+	\end{equation*}
+	по условию теоремы, следовательно, $F[w] \geq F[u]$.$\blacksquare$
+	
+	Заметим, что если бы в выражении \eqref{th_extr_cond} был бы строгий знак (то есть $\delta^2F(u,h) > 0$), то тогда бы было верно, что $F[u] < F[w]$, то есть получился бы \emph{строгий минимум} (он единственен).
+	
+	\subsubsection*{\S\,12. Вычисление второй вариации}
+	
+	Рассмотрим функционал
+	\begin{equation}\label{Legendre}
+		F[u] = \int\limits_a^b f(x, u, u')\,dx,
+	\end{equation}
+	\begin{equation*}
+		D(F) = \left\{u \in C^1([a;b]), \quad u(a) = A,\, u(b) = B\right\}, \quad M = \left\{h \in \mathring{C}^1([a;b])\right\}.
+	\end{equation*}
+	Предполагаем существование всех частных производных функции $f$. Посчитаем вторую вариацию:
+	\begin{equation*}
+		\begin{split}
+			\delta^2F(u,h) = \left.\frac{1}{2}\frac{d^2}{d\alpha^2}F[u + \alpha h]\right|_{\alpha=0} = \left.\frac{1}{2}\frac{d^2}{d\alpha^2}\int\limits_a^b f(x, u + \alpha h, u' + \alpha h')\,dx\right|_{\alpha=0} = \\ = \frac{1}{2}\int\limits_a^b \left(f_{uu}h^2 + f_{uu'}hh' + f_{u'u}h'h + f_{u'u'}\left(h'\right)^2\right)dx = \left[2hh' = \frac{d}{dx}\left(h^2\right)\right] = \\ = \frac{1}{2}\int\limits_a^b \left(f_{uu}h^2 + f_{uu'}\frac{d}{dx}\left(h^2\right) + f_{u'u'}\left(h'\right)^2\right)dx = \frac{1}{2}\int\limits_a^b \left(f_{u'u'}\left(h'\right)^2 +\right. \\ \left. + \left( f_{uu} - \frac{d}{dx}f_{uu'} \right)h^2\right)dx = \frac{1}{2}\int\limits_a^b \left(R(x)\left(h'\right)^2 + P(x)h^2\right)dx
+		\end{split}
+	\end{equation*}
+	
+	\noindent \textbf{У\,т\,в\,е\,р\,ж\,д\,е\,н\,и\,е} (необходимое \emph{условие (Лежандра)} минимума). \textit{Если кривая $u$ --- локальный минимум функционала $F$, а $f_{u'u'} = R(x)$, то $R(x) \geq 0 \quad \forall\,x \in [a;b]$.} (Замечание: $R(x) > 0$ называется \emph{усиленным} условием Лежандра.)
+	
+	\vspace*{0.5em}
+	\noindent \textbf{Доказательство.} От противного. \\
+	Пусть существует точка $x_0 \in (a;b)$ такая, что $R(x_0) < 0$. Функция $R$ непрерывная, следовательно, по теореме о стабилизации знака существует $\delta > 0$ такая, что $\forall\,x \in (x_0 - \delta; x_0 + \delta) \subset (a;b) \quad R(x) < 0$.
+	
+	Подберем функцию $h$ такой, чтобы вторая вариация стала отрицательной. Например, можно взять
+	\begin{equation*}
+		h = \begin{cases}
+			\sin\left(\frac{\pi n (x - x_0)}{\delta}\right), & x \in (x_0 - \delta; x_0 + \delta) \\
+			0, & x \notin (x_0 - \delta; x_0 + \delta)
+		\end{cases},
+	\end{equation*}
+	в этом случае функция $h$ мала, но имеет большую осцилляцию (то есть $(h')^2$ доминирует над $h^2$). Имеем
+	\begin{equation*}
+		|h| \leq 1, \qquad |h'| \sim \frac{C}{\delta},\qquad C = const,
+	\end{equation*}
+	$\text{supp}\,h$\footnote{supp\,$f$ (<<support>>, носитель функции) --- замыкание множества тех точек, в которых функция $f$ не обращается в ноль. П\,р\,и\,м\,е\,р: если $f(x) \neq~0 \quad \forall\,x \in (0;1)$, то supp\,$f = [0;1]$; $f(x) = 0$ вне промежутка $(0;1)$.}$ \subset (x_0 - \delta; x_0 + \delta)$. Тогда, возвращаясь к вычислению второй вариации $\delta^2F(u,h)$,
+	\begin{equation*}
+		\frac{1}{2}\int\limits_a^b \left(R(x)\left(h'\right)^2 + P(x)h^2\right)dx = \frac{1}{2}\int\limits_{x_0 - \delta}^{x_0 + \delta} \left(R(x)\left(h'\right)^2 + P(x)h^2\right)dx < 0,
+	\end{equation*}
+	это выражение строго меньше нуля, поскольку, во-первых, $R(x) <~0$, $h' \sim C/\delta$, значит, $R(x)(h')^2 \sim 1/\delta^2$ и $R(x)(h')^2 < 0$, во-вторых, $|h| \leq 1$, следовательно, $P(x)h^2$ ограничено. Таким образом, первое слагаемое <<задавит>> второе при малом $\delta$. Получаем нарушение условия --- мы рассматривали минимум на экстремали, а получили отрицательную вторую вариацию, то есть максимум.$\blacksquare$
+	
+	Итак, для рассмотренного функционала \eqref{Legendre} формула второй вариации:
+	\begin{equation}\label{Legendre_2nd_var}
+		\delta^2F(u,h) = \frac{1}{2}\int\limits_a^b \left(R(x)\left(h'\right)^2 + P(x)h^2\right)dx,
+	\end{equation}
+	где $R = f_{u'u'}$, $P = f_{uu} - \frac{d}{dx}f_{uu'}$.
+	
+	В таких обозначениях получаем
+	\begin{equation*}
+		\begin{array}{lcl}
+			\text{условие Лежандра:} & f_{u'u'} \geq 0 & (\leq 0 \text{ в случае максимума}), \\
+			\text{усиленное условие Лежандра:} & f_{u'u'} > 0 & (< 0 \text{ в случае максимума}).
+		\end{array}
+	\end{equation*}
+	
+	\emph{Условие Якоби.}\\
+	Пусть выполнено условие Лежандра. Хорошо, если $P(x) = 0$ (таких функционалов много), например, есть функционал 
+	\begin{equation*}
+		F[u] = \int\limits_1^3\left(\left(u'\right)^2+3xu\right)\,dx, \quad u(1)=3,\, u(3)=1.
+	\end{equation*} Считаем вторую вариацию:
+	\begin{equation*}
+		\delta^2F(u,h) = \frac{1}{2}\int\limits_1^3 2\left(h'\right)^2\,dx,
+	\end{equation*}
+	здесь $R(x) = 2 > 0$, а $P(x) = 0$, следовательно, $\delta^2F(u,h) \geq 0$. Вторая вариация равна нулю при $h = const$, но нам это не подходит, следовательно, $\delta^2F(u,h) > 0$. Итого имеем строгий глобальный минимум.
+	
+	Пусть $P(x) \neq 0$. Рассмотрим выражение
+	\begin{equation*}
+		\int\limits_a^b \left(wh^2\right)'dx = \left.wh^2\right|_a^b = 0,
+	\end{equation*}
+	так как $h \in \mathring{C}^1([a;b])$. Прибавим это к формуле \eqref{Legendre_2nd_var}:
+	\begin{equation*}
+		\begin{split}
+			\delta^2F(u,h) = \frac{1}{2}\int\limits_a^b\left(R\left(h'\right)^2 + Ph^2 + \left(wh^2\right)'\right)dx = \frac{1}{2}\int\limits_a^b R\left(\left(h'\right)^2 + \frac{P}{R}\,h^2 + \right.\\\left. + \frac{w'}{R}\,h^2 + 2hh'\,\frac{w}{R}\right)dx = \frac{1}{2}\int\limits_a^b R\left(\left(h' + \frac{hw}{R}\right)^2 + \left(\frac{P}{R} + \frac{w'}{R} - \frac{w^2}{R^2}\right)h^2\right)dx.
+		\end{split}
+	\end{equation*}
+	Подберем функцию $w$ так, чтобы выполнялось равенство
+	\begin{equation}\label{linear_Jacobi}
+		P + w' - \frac{w^2}{R^2} = 0.
+	\end{equation}
+	Будем искать ее в виде $w = -\frac{Rv'}{v}$, тогда уравнение \eqref{linear_Jacobi} станет линейным. Продифференцируем:
+	\begin{equation*}
+		w' = -\frac{\left(Rv'\right)'}{v} + \frac{R\left(v'\right)^2}{v^2},
+	\end{equation*}
+	подставим это в уравнение \eqref{linear_Jacobi}:
+	\begin{equation*}
+		P - \frac{\left(Rv'\right)'}{v} + \frac{R\left(v'\right)^2}{v^2} - \frac{R^2\left(v'\right)^2}{Rv^2} = 0,
+	\end{equation*}
+	отсюда получаем \emph{условие Якоби}:
+	\begin{equation}\label{Jacobi}
+		\begin{cases}
+			-\left(Rv'\right)' + Pv = 0, \\
+			v(a) = 0, \\
+			v'(a) = 1.
+		\end{cases}
+	\end{equation}
+	Данная задача Коши должна иметь решение, не обращающееся в ноль на промежутке $(a;b]$, тогда выражение \eqref{linear_Jacobi} верно, а знак второй вариации определяется знаком функции $R$.
+	
+	Условие Якоби и условие Лежандра дают достаточное условие экстремума.
+	
+	\vspace*{0.5em}
+	\emph{Многомерный случай ($\Omega \subset \mathbb{R}^n$).}
+	\begin{equation*}
+		F[u] = \idotsint\limits_\Omega f(x, u, u_{x_1}, u_{x_2}, \dots, u_{x_n})\,dx, \qquad \left.u\right|_{\partial\Omega} = \varphi,
+	\end{equation*}
+	\begin{equation*}
+		D = \left\{u \in C^1(\bar{\Omega}); \quad h \in C^1(\bar{\Omega}), \quad \left.h\right|_{\partial\Omega} = 0\right\}.
+	\end{equation*}
+	Считаем вторую вариацию этого функционала $\delta^2F(u,h)$:
+	\begin{equation*}
+		\begin{split}
+			\left.\frac{1}{2}\frac{d^2}{d\alpha^2}\left(\idotsint\limits_\Omega f(x, u + \alpha h, u_{x_1} + \alpha h_{x_1}, \dots, u_{x_n} + \alpha h_{x_n})\,dx\right)\right|_{\alpha=0} = \\ = \left.\frac{1}{2}\frac{d}{d\alpha}\left(\idotsint\limits_\Omega \left( f_u(x, \dots)h + \sum_{j=1}^{n}f_{u_{x_j}}(x, \dots)h_{x_j}\right)\,dx\right)\right|_{\alpha=0} = \\ = \frac{1}{2}\idotsint\limits_\Omega\left(f_{uu}h^2 + 2\sum_{j=1}^{n}f_{uu_{x_j}}hh_{x_j} + \sum_{i,j=1}^{n}f_{u_{x_i}u_{x_j}}h_{x_i}h_{x_j}\right)dx = \\ = \frac{1}{2}\idotsint\limits_\Omega\left(f_{uu}h^2 + \sum_{j=1}^{n}f_{uu_{x_j}}\frac{\partial}{\partial x_j}\left(h^2\right) + \sum_{i,j=1}^{n}f_{u_{x_i}u_{x_j}}h_{x_i}h_{x_j}\right)dx = \\ = \frac{1}{2}\idotsint\limits_\Omega \left(\left(f_{uu} - \sum_{j=1}^{n}\frac{\partial}{\partial x_j}f_{uu_{x_j}}\right)h^2 + \sum_{i,j=1}^{n}f_{u_{x_i}u_{x_j}}h_{x_i}h_{x_j}\right)dx.
+		\end{split}
+	\end{equation*}
+	В подынтегральном выражении в первом слагаемом множитель при~$h^2$ окажется равным нулю, поскольку функция $f(x, \nabla u)$ не зависит от функции $u$. Из необходимого условия экстремума следует, что второе слагаемое неотрицательно (если говорим о минимуме). Таким образом, второе слагаемое определяет вторую вариацию данного функционала.
+	
+	Рассмотрим небольшой пример
+	\begin{equation*}
+		F[u] = \int\limits_\Omega \left(|\nabla u|^2 + 2gu\right)dx, \qquad \left.u\right|_{\partial\Omega} = \varphi,
+	\end{equation*}
+	здесь $f_{uu} = 0$, $f_{uu_{x_j}} = 0$ (зависимость от функции $u$ не мешает --- первое слагаемое нулевое).
+	\begin{equation*}
+		\begin{array}{lll}
+			\multirow{2}{*}{$|\nabla u|^2 = \sum_{j=1}^n u_{x_j}^2$;\quad} & \text{при } i \neq j & f_{u_{x_i}u_{x_j}} = 0, \\
+			& \text{при } i = j & f_{u_{x_i}u_{x_j}} = 2.
+		\end{array}
+	\end{equation*}
+	Посчитаем вторую вариацию
+	\begin{equation*}
+		\delta^2F(u,h) = \frac{1}{2}\int\limits_\Omega 2\sum_{j=1}^{n}h_{x_j}^2\,dx = \int\limits_\Omega |\nabla h|^2\,dx \geq 0,
+	\end{equation*}
+	это выражение будет равно нулю при $h = const$. Такой интеграл называется \emph{интегралом Дирихле}.
+	
+	\subsubsection*{\S\,13. Вариационная задача в параметрической форме. Условие трансверсальности}
+	
+	Пусть есть функционал
+	\begin{equation}\label{parameter_eq}
+		F[y] = \int\limits_a^{x_1} f(x,y,y')\,dx, \qquad y(a) = A.
+	\end{equation}
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[gray, thick, ->] (-0.5,1) -- (3,1);
+			\draw[gray, thick, ->] (0,0) -- (0,2);
+			\draw[gray, dotted] (0,1.7) -- (1,1.7);
+			\draw[gray, dotted] (1,1.7) -- (1,1);
+			\filldraw[black] (1,1.7) circle (1pt);
+			\filldraw[black] (0,1.7) node[left]{$A$};
+			\filldraw[black] (1,1) node[below]{$a$};
+			\filldraw[black] (2,0.82) node[left]{$b$};
+			\draw[gray] (2,0) -- (2,2);
+			\draw[gray] (2,1.8) -- (2.2,2);
+			\draw[gray] (2,1.6) -- (2.2,1.8);
+			\draw[gray] (2,1.4) -- (2.2,1.6);
+			\draw[gray] (2,1.2) -- (2.2,1.4);
+			\draw[gray] (2,1) -- (2.2,1.2);
+			\draw[gray] (2,0.8) -- (2.2,1);
+			\draw[gray] (2,0.6) -- (2.2,0.8);
+			\draw[gray] (2,0.4) -- (2.2,0.6);
+			\draw[gray] (2,0.2) -- (2.2,0.4);
+			\draw[gray] (2,0) -- (2.2,0.2);
+		\end{tikzpicture}
+	\end{center}
+	Построим вариационную задачу в параметрической форме.
+	
+	Пусть $\gamma$ --- некоторая гладкая кривая, которая задает параметризацию
+	\begin{equation*}
+		\gamma\,: \quad \begin{cases}
+			y = y(t), \\
+			x = x(t)
+		\end{cases}, \quad t_1 \leq t \leq t_2.
+	\end{equation*}
+	Тогда
+	\begin{equation*}
+		F[\gamma] = F[y] = \int\limits_{t_1}^{t_2} f\left(x(t), y(t), \frac{\dot{y}(t)}{\dot{x}(t)}\right)\dot{x}(t)\,dt = \int\limits_{t_1}^{t_2} \varphi\left(x, y, \dot{x}, \dot{y}\right)\,dt.
+	\end{equation*}
+	Поясним, как это получилось:
+	\begin{equation*}
+		\begin{split}
+			\int\limits_a^{x_1} f(x,y,y')\,dx = \int\limits_{t_1}^{t_2} f\left(x\,\frac{dx}{dt}, y\,\frac{dx}{dt}, y'\,\frac{dx}{dt}\right)\,dt = \int\limits_{t_1}^{t_2} f\left(x\dot{x}, y\dot{x}, \frac{dy}{dx}\frac{dx}{dt}\right)\,dt = \\ = \int\limits_{t_1}^{t_2} f\left(x\dot{x}, y\dot{x}, \frac{dy}{dt}\right)\,dt = \int\limits_{t_1}^{t_2} f\left(x, y, \frac{\dot{y}}{\dot{x}}\right)\dot{x}\,dt.
+		\end{split}
+	\end{equation*}
+	
+	Для функции $\varphi(x,y,\dot{x},\dot{y})$ верно следующее
+	\begin{equation*}
+		\begin{cases}
+			\text{нет явной зависимости от переменной $t$}, \\
+			\text{при } \lambda > 0\,: \quad \varphi(x,y,\lambda\dot{x},\lambda\dot{y}) = \lambda\varphi(x,y,\dot{x},\dot{y}),
+		\end{cases} \Rightarrow
+	\end{equation*}
+	$\Rightarrow$\footnote{Функция $\varphi$ является положительной однородной функцией первой степени по третьему и четвертому аргументам.} решение вариационной задачи не зависит от параметризации.
+	
+	Система уравнений Эйлера для данного функционала
+	\begin{equation*}
+		\begin{cases}
+			\varphi_x - \frac{d}{dt}\varphi_{\dot{x}} = 0, \\
+			\varphi_y - \frac{d}{dt}\varphi_{\dot{y}} = 0.
+		\end{cases}
+	\end{equation*}
+	Покажем, почему это так. Пусть функция $\varphi$ такая, как описано выше. Пусть $t = t(\tau)$ --- параметризация, такая что $t'(\tau) > 0$,
+	\begin{equation*}
+		\begin{cases}
+			x(t(\tau)) = \tilde{x}(\tau), \\
+			y(t(\tau)) = \tilde{y}(\tau),
+		\end{cases} \quad \tau_1 \leq \tau \leq \tau_2.
+	\end{equation*}
+	Итого,
+	\begin{equation*}
+		\begin{split}
+			\int\limits_{t_1}^{t_2} \varphi(x, y, \dot{x}, \dot{y})\,dt = \int\limits_{\tau_1}^{\tau_2} \varphi \left(\tilde{x}(\tau), \tilde{y}(\tau), \frac{d\tilde{x}}{d\tau}\big/\frac{dt}{d\tau}, \frac{d\tilde{y}}{d\tau}\big/\frac{dt}{d\tau}\right)\frac{dt}{d\tau}\,d\tau = \\ = \int\limits_{\tau_1}^{\tau_2} \varphi \left(\tilde{x}(\tau), \tilde{y}(\tau), \frac{d\tilde{x}}{d\tau}, \frac{d\tilde{y}}{d\tau}\right)d\tau.
+		\end{split}
+	\end{equation*}
+	Получилось то же самое, значит и система Эйлера та же.
+	
+	Рассмотрим функционал \eqref{parameter_eq}, условие задано только на левом конце, верхний предел интеграла не фиксирован. Если ограничить кривую концом в точке $b$, то появится естественное граничное условие. Сейчас этого нет.
+	
+	Перейдем к параметрической форме:
+	\begin{equation*}
+		\begin{cases}
+			y = y(t), \\
+			x = x(t),
+		\end{cases}
+	\end{equation*}
+	\begin{equation*}
+		y' = \frac{dy}{dx} = \frac{dy}{dt}\big/\frac{dx}{dt} = \frac{\dot{y}}{\dot{x}}.
+	\end{equation*}
+	Тогда функционал
+	\begin{equation*}
+		F[x,y] = \int\limits_{t_1}^{t_2} f\left(x(t), y(t), \frac{\dot{y}(t)}{\dot{x}(t)}\right)\dot{x}(t)\,dt = \int\limits_{t_1}^{t_2} \psi(x, y, \dot{x}, \dot{y})\,dt,
+	\end{equation*}
+	\begin{equation*}
+		x(t_1) = a, \quad y(t_1) = A,
+	\end{equation*}
+	\begin{equation*}
+		\psi\,: \quad\begin{cases}
+			\text{не зависит явно от переменной $t$}, \\
+			\forall\,\lambda > 0 \quad \varphi(x,y,\lambda\dot{x},\lambda\dot{y}) = \lambda\varphi(x,y,\dot{x},\dot{y}).
+		\end{cases}
+	\end{equation*}
+	Необходимое условие экстремума для данного функционала --- система уравнений Эйлера:
+	\begin{equation*}
+		x, y \in C^1(t \geq t_1) \qquad \begin{cases}
+			\psi_x - \frac{d}{dt}\psi_{\dot{x}} = 0, \\
+			\psi_y - \frac{d}{dt}\psi_{\dot{y}} = 0.
+		\end{cases}
+	\end{equation*}
+	Посчитаем первую вариацию. Пусть \{$h, \eta \in C^1(t \geq t_1)$\,: $h(t_1) = 0$, $\eta(t_1) = 0$\} --- это $M$. Положим $\alpha = \beta$:
+	\begin{equation*}
+		\begin{split}
+			\delta F(x,y,h,\eta) = \left.\frac{d}{d\alpha}F[x + \alpha h, y + \alpha \eta]\right|_{\alpha=0} = \int\limits_{t_1}^{t_2} \left(\psi_xh + \psi_yh + \psi_{\dot{x}}\dot{h}\right. + \\ \left. + \psi_{\dot{y}}\dot{h}\right)dt = \int\limits_{t_1}^{t_2} \left(\left(\psi_x - \frac{d}{dt}\psi_{\dot{x}}\right)h + \left(\psi_y - \frac{d}{dt}\psi_{\dot{y}}\right)\eta\right)dt + \\ + \left.\psi_{\dot{x}}\right|_{t=t_2}h(t_2) + \left.\psi_{\dot{y}}\right|_{t=t_2}\eta(t_2) = 0.
+		\end{split}
+	\end{equation*}
+	В подынтегральном выражении в скобках очевидны уравнения из системы Эйлера, следовательно, весь интеграл будет равен нулю. Остается
+	\begin{equation*}
+		\left.\psi_{\dot{x}}\right|_{t=t_2}h(t_2) + \left.\psi_{\dot{y}}\right|_{t=t_2}\eta(t_2) = 0 \qquad \forall\,h,\eta \in M.
+	\end{equation*}
+	Функции $h$ и $\eta$ не зависят друг от друга и произвольны, запишем тогда так:
+	\begin{equation}\label{tmp_vars}
+		\left.\psi_{\dot{x}}\right|_{t=t_2}\delta x + \left.\psi_{\dot{y}}\right|_{t=t_2}\delta y = 0.
+	\end{equation}
+	
+	Вспомним, что $\psi(x, y, \dot{x}, \dot{y}) = f(x, y, \frac{\dot{y}}{\dot{x}})\dot{x}$, тогда
+	\begin{equation*}
+		\psi_{\dot{x}} = f\left(x, y, \frac{\dot{y}}{\dot{x}}\right) + \dot{x}f_{y'}\left(-\frac{\dot{y}}{\dot{x}^2}\right) = f - y'f_{y'},
+	\end{equation*}
+	\begin{equation*}
+		\psi_{\dot{y}} = \dot{x}f_{y'}\frac{1}{\dot{x}} = f_{y'}.
+	\end{equation*}
+	Перепишем теперь формулу \eqref{tmp_vars} как
+	\begin{equation}\label{1st_var_common}
+		\left.\left(f - y'f_{y'}\right)\right|_{x=x_1}\delta x + \left.f_{y'}\right|_{x=x_1}\delta y = 0,
+	\end{equation}
+	это выражение называется \emph{общей формой первой вариации}.
+	
+	\vspace*{0.5em}
+	\emph{Частные случаи формулы \eqref{1st_var_common}}.
+	\begin{itemize}
+		\item [1.] Пусть переменная $x$ не варьируется (то есть задан какой-то $x_1$), значит, $\delta x = 0$, а $\delta y$ --- любая. Тогда естественное граничное условие такого функционала на свободном конце
+		\begin{equation*}
+			\left.f_{y'}\right|_{x=x_1} = 0.
+		\end{equation*}
+		\item [2.] Пусть экстремаль заканчивается на заданной гладкой кривой --- условие трансверсальности.
+		\begin{center}
+			\begin{tikzpicture}
+				\draw[gray, thick, ->] (-0.5,1) -- (3,1);
+				\draw[gray, thick, ->] (0,0) -- (0,2);
+				\draw[gray, dotted] (0,1.7) -- (1,1.7);
+				\draw[gray, dotted] (1,1.7) -- (1,1);
+				\filldraw[black] (1,1.7) circle (1pt);
+				\draw (0,1.7) node[left]{$A$};
+				\draw (1,1) node[below]{$a$};
+				\draw [black] (1,0) to [out=20,in=200] (2.5,1.5) to [out=20,in=260] (3,2);
+				\draw (2.5,1.4) node[right]{$y=\varphi(x)$};
+				\draw [gray] (1,1.7) to [out=30,in=190] (1.3,1.8) to [out=0,in=180] (1.8,1.7) to [out=0,in=180] (2.3,1.8) to [out=-10,in=130] (2.7,1.6);
+				\draw [gray] (1,1.7) to [out=-40,in=170] (1.5,1.4) to [out=0,in=180] (1.9,1.5) to [out=-10,in=170] (2.3,1.4);
+				\draw [gray] (1,1.7) to [out=-60,in=100] (1.4,1) to [out=-70,in=130] (1.5,0.4) to [out=-10,in=170] (1.6,0.5);
+			\end{tikzpicture}
+		\end{center}
+		Пусть кривая $y = \varphi(x)$, $\varphi \in C^1$. В данном случае мы не можем произвольно варьировать $x$ и $y$: в формуле \eqref{1st_var_common} $\delta x$ и $\delta y$ связаны тем, что с заданной кривой сходить нельзя. Поймем эту связь. По формуле Тейлора
+		\begin{equation*}
+			\varphi(x_1 + \Delta x) = \varphi(x_1) + \varphi'(x_1)\Delta x + o(\Delta x),
+		\end{equation*}
+		получаем
+		\begin{equation*}
+			\left.\Delta \varphi\right|_{x=x_1} = \varphi(x_1 + \Delta x) - \varphi(x_1) \approx \varphi'(x_1)\Delta x,
+		\end{equation*}
+		обозначим $\Delta x$ и $\Delta \varphi|_{x=x_1}$ как $\delta x$ и $\delta y$ соответственно (это ассоциации). Подставим все это в формулу \eqref{1st_var_common}:
+		\begin{equation*}
+			\left.\left(f - y'f_{y'}\right)\delta x\right|_{x=x_1} + \left.f_{y'}\varphi'(x_1)\delta x\right|_{x=x_1} = 0.
+		\end{equation*}
+		Отсюда следует \emph{условие трансверсальности}
+		\begin{equation*}
+			\left.\left(f + \left(\varphi' - y'\right)f_{y'}\right)\right|_{x=x_1} = 0.
+		\end{equation*}
+		\item [3.] Экстремаль с изломом (то есть вторая производная равна нулю). Рассмотрим на примере уже знакомого нам функционала
+		\begin{equation*}
+			\int\limits_{-1}^1 y^2\left(1-y'\right)^2\,dx, \quad y(-1) = 0, \, y(1) = 1.
+		\end{equation*}
+		Решением будет кривая
+		\begin{equation*}
+			y = \begin{cases}
+				0, & x < 0 \\
+				x, & x \geq 0,
+			\end{cases}
+		\end{equation*}
+		являющаяся экстремалью с изломом. Пусть не знаем, где излом: $c \in (a;b)$ --- точка, где нарушается непрерывность и дифференцируемость, значит
+		\begin{equation*}
+			\int\limits_a^b f\,dx = \int\limits_a^c f\,dx + \int\limits_c^b f\,dx = F_1 + F_2,
+		\end{equation*}
+		тогда $\delta F_1 + \delta F_2 = 0$ и потребуем условие непрерывности экстремали в точке $c$. Но эта точка неизвестна, значит, нужно варьировать не только $y$, но и $x$. Для $F_1$ выполняется формула \eqref{1st_var_common}, и предел слева:
+		\begin{equation*}
+			\left.\left(f - y'f_{y'}\right)\right|_{x=c-0}\delta x + \left.f_{y'}\right|_{x=c-0}\delta y -
+		\end{equation*}
+		для $F_2$ аналогично, но $c$ --- нижний предел:
+		\begin{equation*}
+			- \left.\left(f - y'f_{y'}\right)\right|_{x=c+0}\delta x - \left.f_{y'}\right|_{x=c+0}\delta y = 0.
+		\end{equation*}
+		$\delta x. \delta y$ произвольны, следовательно, в точке излома выполняются \emph{условия на скачок} (Вейерштрасса---Эрдмана):
+		\begin{equation*}
+			\left[f - y'f_{y'}\right]_{x=c} = 0, \qquad \left[f_{y'}\right]_{x=c} = 0.
+		\end{equation*}
+	\end{itemize}
+
+	\subsubsection*{\S\,14. Вывод уравнения колебаний струны}
+	
+	Принцип наименьшего действия Остроградского---Гамильтона: \\ для систем со стационарными связями, находящимися под действием потенциальных сил и не зависящих явно от времени, существует интеграл энергии $E = K + \text{\textit{П}} = h = const$, где $K$ --- кинетическая энергия, \textit{П} --- потенциальная.
+	
+	Запишем функционал действия
+	\begin{equation*}
+		D = \int\limits_{t_0}^{t_1}(K - \text{\textit{П}})\,dt,
+	\end{equation*}
+	то есть реальное движение --- это экстремаль $D$. Рассмотрим струну:
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[gray, thick, ->] (-0.5,1) -- (5,1);
+			\draw[gray, thick, ->] (0,0) -- (0,2.5);
+			\draw (5,1) node[below]{$x$};
+			\draw (0,2.5) node[left]{$u$};
+			\draw[gray, dotted] (0,1.7) -- (1.5,1.7);
+			\draw[gray, dotted] (1.1,2) -- (1.1,1);
+			\draw (0,1.7) node[left]{$u^*$};
+			\draw (1.1,1) node[below]{$x^*$};
+			\draw (4.4,1) node[below]{$l$};
+			\draw [black] (0,1) to [out=45,in=180] (1.1,1.7) to [out=0,in=135] (2.2,1) to [out=-45,in=180] (3.3,0.3) to [out=0,in=-135] (4.4,1);
+			\draw (1.8,1.5) node[right]{$u(x,t)$};
+		\end{tikzpicture}
+	\end{center}
+	Кинетическая энергия --- это $K = mv^2/2$, где $m$ --- масса, а $v$ --- скорость (то есть $u_t$). Пусть $\rho$ --- линейная плотность струны, тогда
+	\begin{equation*}
+		K(t) = \int\limits_0^l \frac{\rho u_t^2}{2}\,dx.
+	\end{equation*}
+	Удлинение струны --- это $\sqrt{1 + u_x^2} - 1$, пусть $T$ --- натяжение струны, тогда
+	\begin{equation*}
+		\text{\textit{П}}(t) = \int\limits_0^l T\left(\sqrt{1 + u_x^2} - 1\right)dx.
+	\end{equation*}
+	
+	Предполагаем, что колебания малые, значит $|u_x|$ мало. Рассмотрим разложение в ряд Тейлора следующей функции
+	\begin{equation*}
+		\sqrt{1 + u_x^2} = 1 + \frac{1}{2}u_x^2 + o(u_x^2),
+	\end{equation*}
+	отсюда следует, что
+	\begin{equation*}
+		\text{\textit{П}}(t) \approx \int\limits_0^l \frac{T u_x^2}{2}\,dx.
+	\end{equation*}
+	Тогда, в случае струны, получаем такой функционал действия:
+	\begin{equation*}
+		D = \int\limits_{t_0}^{t_1}\int\limits_0^l \left(\frac{\rho}{2}u_t^2 - \frac{T}{2}u_x^2\right)dxdt,
+	\end{equation*}
+	\begin{center}
+		\begin{tikzpicture}
+			\draw[gray, thick, ->] (-0.5,0) -- (5,0);
+			\draw[gray, thick, ->] (-0.5,0) -- (-0.5,2.5);
+			\draw (5,0) node[below]{$x$};
+			\draw (-0.5,2.5) node[left]{$t$};
+			\draw[gray, dotted] (0,0) -- (0,0.5);
+			\draw[gray, dotted] (4.4,0) -- (4.4,0.5);
+			\draw[gray, dotted] (-0.5,0.5) -- (0,0.5);
+			\draw[gray, dotted] (-0.5,2) -- (0,2);
+			\draw[black, fill=gray] (0,0.5) -- (0,2) -- (4.4,2) -- (4.4,0.5) -- (0,0.5);
+			\draw (4.4,0) node[below]{$l$};
+			\draw (0,0) node[below]{$0$};
+			\draw (-0.5,0.5) node[left]{$t_0$};
+			\draw (-0.5,2) node[left]{$t_1$};
+			\draw (0.55,1.25) node[right]{$\mathfrak{P} = [0;l]\times[t_0;t_1]$};
+		\end{tikzpicture}
+	\end{center}
+	Считаем, что концы струны закреплены (то есть $h|_{x=0} = h|_{x=l} = h|_{t=t_0} = h|_{t=t_1} = 0$, где $h \in C^1(\mathfrak{P})$, а функции $u|_{t=t_0}, u|_{t=t_1}$ известны). Пусть $\rho, T > 0$ и постоянны, посчитаем первую вариацию:
+	\begin{equation*}
+		\begin{split}
+			\delta D(u,h) = \left.\frac{d}{d\alpha} D[u + \alpha h]\right|_{\alpha=0} = \int\limits_{t_0}^{t_1}\int\limits_0^l (\rho u_th_t - Tu_xh_x)\,dxdt = \\ = \int\limits_{t_0}^{t_1}\int\limits_0^l (-\rho u_{tt} + Tu_{xx})h\,dxdt + \int\limits_0^l \left.\rho u_t\right|_{t=t_1}h(x,t_1)\,dx - \\ - \int\limits_0^l \left.\rho u_t\right|_{t=t_0}h(x,t_0)\,dx + \int\limits_{t_0}^{t_1} \left.Tu_x\right|_{x=l}h(l,t)\,dt - \int\limits_{t_0}^{t_1} \left.Tu_x\right|_{x=0}h(0,t)\,dt = \\ = \int\limits_{t_0}^{t_1}\int\limits_0^l (Tu_{xx} -\rho u_{tt})h\,dxdt.
+		\end{split}
+	\end{equation*}
+	Заметим, что если $\rho, T < 0$, то тоже все хорошо, просто здесь не рассматривается этот случай.
+	
+	По лемме 1 получаем $\rho u_{tt} - Tu_{xx} = 0$, введем множитель $a^2 = T/\rho$, тогда \emph{волновое уравнение}:
+	\begin{equation*}
+		u_{tt} - a^2u_{xx} = 0.
+	\end{equation*}
+	Если на струну есть внешнее воздействие (колебания не свободные), то рассматривают неоднородное уравнение
+	\begin{equation*}
+		u_{tt} - a^2u_{xx} = f(x,t).
+	\end{equation*}
+	
+	Рассмотрим колебания мембраны. Пусть $T$ --- натяжение площади поверхности, а растяжение --- $\sqrt{1 + u_x^2 + u_y^2} - 1 \approx (u_x^2 + u_y^2)/2$, тогда
+	\begin{equation*}
+		\text{\textit{П}}(t) = \iint\limits_\Omega{T\left(\frac{u_x^2}{2} + \frac{u_y^2}{2}\right)dxdy}.
+	\end{equation*}
+	Значит, функционал дейстия в этом случае
+	\begin{equation*}
+		D = \int\limits_{t_0}^{t_1}\left(\iint\limits_\Omega \left(\frac{\rho u_t^2}{2} - \frac{T(u_x^2 + u_y^2)}{2}\right)dxdy\right)dt.
+	\end{equation*}
+	Аналогично одномерному случаю получаем волновое уравнение
+	\begin{equation*}
+		u_{tt} - a^2(u_{xx} + u_{yy}) = f, \quad \text{или} \quad u_{tt} - a^2\Delta u = f, \quad u=u(x,t),\, x \in \mathbb{R}^n.
+	\end{equation*}
+	
+	\subsubsection*{\S\,15. Постановка краевых задач}
+	
+	Пусть есть такая задача Коши:
+	\begin{equation*}
+		u_{tt} - a^2\Delta u = f, \quad x \in \mathbb{R}^n, \quad t > 0,
+	\end{equation*}
+	\begin{equation*}
+		\begin{cases}
+			\left.u\right|_{t=0} = \varphi(x), \\
+			\left.u_t\right|_{t=0} = \psi(x).
+		\end{cases}
+	\end{equation*}
+	Решение этой задачи ищется во всем пространстве.
+	
+	\emph{Начально-краевые задачи.}
+	
+	\noindent Рассмотрим на примере струны ($n = 1$).\\ Начальные условия --- это $u|_{t=0} = \varphi(x)$ (положение точек струны в~начальный момент времени), $u_t|_{t=0} = \psi(x)$ (начальная скорость). Краевые условия --- условия при $x = 0$ и при $x = l$. Различают три вида краевых условий.
+	\begin{itemize}
+		\item [1.] Первое краевое \emph{условие Дирихле}.\\
+		Закон движения конца:
+		\begin{equation*}
+			\left.u\right|_{x=0} = g(t) \quad \text{или} \quad \left.u\right|_{x=l} = g(t).
+		\end{equation*}
+		\item [2.] Второе краевое \emph{условие Неймана}.\\
+		\begin{equation*}
+			\left.u_x\right|_{x=0} = g(t) \quad \text{или} \quad \left.u_x\right|_{x=l} = g(t).
+		\end{equation*}
+		Пояснение: конец струны как бы <<ходит>> по колечку, нанизанному на штырь, без трения.
+		\begin{center}
+			\begin{tikzpicture}
+				\draw[gray, thick, ->] (0,0) -- (3,0);
+				\draw[gray, thick, ->] (0,0) -- (0,1.5);
+				\draw (3,0) node[below]{$x$};
+				\draw (2,0) node[below]{$l$};
+				\filldraw[black] (0,0) circle (1pt) node[below]{$0$};
+				\draw[ultra thick] (2,0) -- (2,1);
+				\draw[black] (0,0) to [out=30,in=180] (2,0.7);
+				\draw[thick] (2,0.6) ellipse (0.3cm and 0.1cm);
+			\end{tikzpicture}
+		\end{center}
+		Свободный конец будет при $u_x|_{x=0} = 0$, то есть никакая сила не приложена.
+		\item [2.] \emph{Третье краевое условие}.\\
+		Колечко перемещается по штырю несвободно, поскольку штырь находится на пружине.
+		\begin{center}
+			\begin{tikzpicture}
+				\draw[gray, thick, ->] (0,0) -- (3,0);
+				\draw[gray, thick, ->] (0,0) -- (0,1.5);
+				\draw (3,0) node[below]{$x$};
+				\draw (2,0) node[below]{$l$};
+				\filldraw[black] (0,0) circle (1pt) node[below]{$0$};
+				\draw[ultra thick] (2,0) -- (2,1);
+				\draw[black] (0,0) to [out=30,in=180] (2,0.7);
+				\draw[thick] (2,0.6) ellipse (0.3cm and 0.1cm);
+				\draw[gray] (2,0.5) to [out=190,in=80] (1.8,0.4167) to [out=-80,in=-100] (2.2,0.3334) to [out=100,in=80] (1.8,0.25) to [out=-80,in=-100] (2.2,0.1667) to [out=100,in=80] (1.8,0.0833) to [out=-80,in=170] (2,0);
+			\end{tikzpicture}
+		\end{center}
+		Тогда функционал действия будет выглядеть так
+		\begin{equation*}
+			\text{\textit{П}}(t) = \int\limits_0^l T\left(\sqrt{1 + u_x^2} - 1\right)dx + \int\limits_{t_0}^{t_1} \frac{\sigma u^2(t,l)}{2}\,dt.
+		\end{equation*}
+		В этом случае первая вариация будет
+		\begin{equation*}
+			\begin{split}
+				\delta D(u,h) = \int\limits_{t_0}^{t_1}\int\limits_0^l (\rho u_{t}h_t + Tu_{x}h_x)\,dxdt - \int\limits_{t_0}^{t_1} \sigma u(t,l)h\,dt = \\ = \int\limits_{t_0}^{t_1}\int\limits_0^l (Tu_{xx} -\rho u_{tt})h\,dxdt + \int\limits_{t_0}^{t_1} \left(\left.-Tu_xh\right|_{x=0}^{x=l} - \sigma u(t,l)h\right)dt.
+			\end{split}
+		\end{equation*}
+		
+		При $x=l$ нет условия $h|_{x=l} = 0$, значит, в первой вариации множитель при $x=0$ уйдет, и останется
+		\begin{equation*}
+			\int\limits_{t_0}^{t_1} \left(-Tu_x - \sigma u\right)h(t,l)\,dt = 0 \quad \stackrel{\text{лемма 1}}{\Longrightarrow} \quad Tu_x + \sigma u = 0.
+		\end{equation*}
+		Таким образом, третье краевое условие на правом конце:
+		\begin{equation*}
+			\left.\left(u_x + hu\right)\right|_{x=l} = 0, \quad h = \frac{\sigma}{T} > 0.
+		\end{equation*}
+		
+		Пусть теперь $x = 0$, тогда множитель при $x = l$ занулится, и останется
+		\begin{equation*}
+			\int\limits_{t_0}^{t_1} \left(Tu_x - \sigma u\right)h(t,0)\,dt = 0 \quad \stackrel{\text{лемма 1}}{\Longrightarrow} \quad Tu_x - \sigma u = 0.
+		\end{equation*}
+		Следовательно, третье краевое условие на левом конце:
+		\begin{equation*}
+			\left.\left(u_x - hu\right)\right|_{x=0} = 0, \quad h = \frac{\sigma}{T} > 0.
+		\end{equation*}
+	\end{itemize}
+	Заметим, что третьим краевым условием является линейная комбинация первого и второго.
+	
+	Пусть есть область $\Omega \subset \mathbb{R}^n$. Составим начально-краевую задачу для волнового уравнения
+	\begin{equation*}
+		u_{tt} - a^2\Delta u = f, \quad x \in \Omega, \quad t > 0.
+	\end{equation*}
+	Пусть $\vec{n}$ --- внешняя нормаль по отношению к границе области $\Omega$, тогда
+	\begin{equation*}
+		\left[\begin{array}{ll}
+			\left.u\right|_{\partial\Omega} = g(t) & (\text{к.у. Дирихле}), \\
+			\left.\frac{\partial u}{\partial n}\right|_{\partial\Omega} = g(t) & (\text{к.у. Неймана}), \\
+			\left.\left(\frac{\partial u}{\partial n} + hu\right)\right|_{\partial\Omega} = g(t) & (\text{Третье к.у.});
+		\end{array}\right. \qquad \begin{cases}
+			\left.u\right|_{t=0} = \varphi(x), \\
+			\left.u_t\right|_{t=0} = \psi(x).
+		\end{cases}
+	\end{equation*}
+	
+	\subsubsection*{\S\,16. Энергетическое неравенство для волнового уравнения}
+	
+\end{document}
